@@ -1,0 +1,12 @@
+.input {
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #beb7b7;
+  max-width: 350px;
+  width: 100%;
+  transition: .3s ease-in-out;
+
+  &:focus {
+    max-width: 500px;
+  }
+}

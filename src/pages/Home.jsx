@@ -7,7 +7,7 @@ import Sort from '../components/Sort';
 import Skeleton from '../components/PizzaBlock/Skeleton';
 import PizzaBlock from '../components/PizzaBlock';
 
-function Home() {
+function Home({ searchValue }) {
    const [items, setItems] = React.useState([]);
    const [isLoading, setIsLoading] = React.useState(true);
 
@@ -31,14 +31,14 @@ function Home() {
    React.useEffect(() => {
       setIsLoading(true);
       fetch(
-         `https://639f35a97aaf11ceb8954a67.mockapi.io/Themes?${category}&sortBy=${selectedSort.sort}&order=${selectedSort.direction}`
+         `https://639f35a97aaf11ceb8954a67.mockapi.io/Themes?${category}&sortBy=${selectedSort.sort}&order=${selectedSort.direction}&search=${searchValue}`
       )
          .then((res) => res.json())
          .then((json) => {
             setItems(json);
             setIsLoading(false);
          });
-   }, [categoryId, selectedSort]);
+   }, [categoryId, selectedSort, searchValue]);
 
    return (
       <div className='content'>
