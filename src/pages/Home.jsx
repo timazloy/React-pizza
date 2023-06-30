@@ -12,7 +12,11 @@ function Home() {
    const [isLoading, setIsLoading] = React.useState(true);
 
    const [categoryId, setCategoryId] = React.useState(0);
-   const [selectedSort, setSelectedSort] = React.useState(0);
+   const [selectedSort, setSelectedSort] = React.useState({
+      name: 'популярности (DESC)',
+      sort: 'rating',
+      direction: 'desc'
+   });
 
    const category = categoryId > 0 ? `category=${categoryId}` : '';
 
@@ -20,13 +24,15 @@ function Home() {
       setCategoryId(i);
    };
 
-   const sortItems = (i) => {
-      setSelectedSort(i);
+   const sortItems = (obj) => {
+      setSelectedSort(obj);
    };
 
    React.useEffect(() => {
       setIsLoading(true);
-      fetch(`https://639f35a97aaf11ceb8954a67.mockapi.io/Themes?${category}&sortBy=price&order=asc`)
+      fetch(
+         `https://639f35a97aaf11ceb8954a67.mockapi.io/Themes?${category}&sortBy=${selectedSort.sort}&order=${selectedSort.direction}`
+      )
          .then((res) => res.json())
          .then((json) => {
             setItems(json);

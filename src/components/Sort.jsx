@@ -2,7 +2,6 @@ import React from 'react';
 
 function Sort({ selectedSort, sortItems }) {
    const [openSort, setOpenSort] = React.useState(false);
-   // const [selectedItem, setSelectedItem] = React.useState(0);
 
    const items = [
       {
@@ -36,10 +35,10 @@ function Sort({ selectedSort, sortItems }) {
          direction: 'asc'
       }
    ];
-   const activeSort = items[selectedSort].name;
+   const activeSort = selectedSort.name;
 
-   const clickSortItem = (i) => {
-      sortItems(i);
+   const clickSortItem = (i, selectedSort, sortItem) => {
+      sortItems(items[i]);
       setOpenSort(false);
    };
 
@@ -59,7 +58,7 @@ function Sort({ selectedSort, sortItems }) {
             <div className='sort__popup'>
                <ul>
                   {items.map((sortItem, i) => (
-                     <li onClick={() => clickSortItem(i)} key={i} className={selectedSort === i ? 'active' : ''}>
+                     <li onClick={() => clickSortItem(i)} key={i} className={selectedSort.name === sortItem.name ? 'active' : ''}>
                         {sortItem.name}
                      </li>
                   ))}
