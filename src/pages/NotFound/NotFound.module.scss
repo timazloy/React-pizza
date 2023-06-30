@@ -1,0 +1,15 @@
+.notFound {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+
+  &__title {
+    margin-bottom: 20px;
+  }
+
+  &__gif {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+}

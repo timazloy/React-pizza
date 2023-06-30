@@ -11,20 +11,27 @@ function Home() {
    const [items, setItems] = React.useState([]);
    const [isLoading, setIsLoading] = React.useState(true);
 
+   const [categoryId, setCategoryId] = React.useState(0);
+   const category = categoryId > 0 ? `category=${categoryId}` : '';
+
+   const clickCategory = (i) => {
+      setCategoryId(i);
+   };
+
    React.useEffect(() => {
-      fetch('https://639f35a97aaf11ceb8954a67.mockapi.io/Themes')
+      fetch(`https://639f35a97aaf11ceb8954a67.mockapi.io/Themes?${category}&sortBy=price&order=asc`)
          .then((res) => res.json())
          .then((json) => {
             setItems(json);
             setIsLoading(false);
          });
-   }, []);
+   }, [categoryId]);
 
    return (
       <div className='content'>
          <div className='container'>
             <div className='content__top'>
-               <Categories />
+               <Categories categoryId={categoryId} clickCategory={clickCategory} />
                <Sort />
             </div>
             <h2 className='content__title'>Все пиццы</h2>
