@@ -12,27 +12,34 @@ function Home() {
    const [isLoading, setIsLoading] = React.useState(true);
 
    const [categoryId, setCategoryId] = React.useState(0);
+   const [selectedSort, setSelectedSort] = React.useState(0);
+
    const category = categoryId > 0 ? `category=${categoryId}` : '';
 
    const clickCategory = (i) => {
       setCategoryId(i);
    };
 
+   const sortItems = (i) => {
+      setSelectedSort(i);
+   };
+
    React.useEffect(() => {
+      setIsLoading(true);
       fetch(`https://639f35a97aaf11ceb8954a67.mockapi.io/Themes?${category}&sortBy=price&order=asc`)
          .then((res) => res.json())
          .then((json) => {
             setItems(json);
             setIsLoading(false);
          });
-   }, [categoryId]);
+   }, [categoryId, selectedSort]);
 
    return (
       <div className='content'>
          <div className='container'>
             <div className='content__top'>
                <Categories categoryId={categoryId} clickCategory={clickCategory} />
-               <Sort />
+               <Sort selectedSort={selectedSort} sortItems={sortItems} />
             </div>
             <h2 className='content__title'>Все пиццы</h2>
             <div className='content__items'>

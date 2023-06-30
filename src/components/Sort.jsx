@@ -1,14 +1,45 @@
 import React from 'react';
 
-function Sort() {
+function Sort({ selectedSort, sortItems }) {
    const [openSort, setOpenSort] = React.useState(false);
-   const [selectedItem, setSelectedItem] = React.useState(0);
+   // const [selectedItem, setSelectedItem] = React.useState(0);
 
-   const sortItems = ['популярности', 'цене', 'алфавиту'];
-   const activeSort = sortItems[selectedItem];
+   const items = [
+      {
+         name: 'популярности (DESC)',
+         sort: 'rating',
+         direction: 'desc'
+      },
+      {
+         name: 'популярности (ASC)',
+         sort: 'rating',
+         direction: 'asc'
+      },
+      {
+         name: 'цене (DESC)',
+         sort: 'price',
+         direction: 'desc'
+      },
+      {
+         name: 'цене (ASC)',
+         sort: 'price',
+         direction: 'asc'
+      },
+      {
+         name: 'алфавиту (DESC)',
+         sort: 'title',
+         direction: 'desc'
+      },
+      {
+         name: 'алфавиту (ASC)',
+         sort: 'title',
+         direction: 'asc'
+      }
+   ];
+   const activeSort = items[selectedSort].name;
 
    const clickSortItem = (i) => {
-      setSelectedItem(i);
+      sortItems(i);
       setOpenSort(false);
    };
 
@@ -27,9 +58,9 @@ function Sort() {
          {openSort && (
             <div className='sort__popup'>
                <ul>
-                  {sortItems.map((sortItem, i) => (
-                     <li onClick={() => clickSortItem(i)} key={i} className={selectedItem === i ? 'active' : ''}>
-                        {sortItem}
+                  {items.map((sortItem, i) => (
+                     <li onClick={() => clickSortItem(i)} key={i} className={selectedSort === i ? 'active' : ''}>
+                        {sortItem.name}
                      </li>
                   ))}
                </ul>
