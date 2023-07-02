@@ -1,4 +1,7 @@
 import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { setCategoryId } from '../redux/slices/filterSlices';
+
 import '../scss/app.scss';
 import '../App.css';
 
@@ -9,12 +12,15 @@ import PizzaBlock from '../components/PizzaBlock';
 import Pagination from '../components/Pagination';
 
 function Home({ searchValue }) {
+   const dispatch = useDispatch();
+   const categoryId = useSelector((state) => state.filter.categoryId);
+
    const [items, setItems] = React.useState([]);
    const [isLoading, setIsLoading] = React.useState(true);
 
    const [currentPage, setCurrentPage] = React.useState(1);
 
-   const [categoryId, setCategoryId] = React.useState(0);
+   // const [categoryId, setCategoryId] = React.useState(0);
    const [selectedSort, setSelectedSort] = React.useState({
       name: 'популярности (DESC)',
       sort: 'rating',
@@ -23,9 +29,15 @@ function Home({ searchValue }) {
 
    const category = categoryId > 0 ? `category=${categoryId}` : '';
 
-   const clickCategory = (i) => {
-      setCategoryId(i);
+   // const onClickCategory = (id) => {};
+
+   const clickCategory = (id) => {
+      // setCategoryId(i);
+      console.log(id);
+      dispatch(setCategoryId(id));
    };
+
+   console.log(categoryId);
 
    const sortItems = (obj) => {
       setSelectedSort(obj);
