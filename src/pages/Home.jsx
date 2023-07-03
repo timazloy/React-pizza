@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { setCategoryId, setSelectedSort } from '../redux/slices/filterSlices';
+import { setCategoryId, setSelectedSort, setCurrentPage } from '../redux/slices/filterSlices';
 import axios from 'axios';
 
 import '../scss/app.scss';
@@ -14,13 +14,12 @@ import Pagination from '../components/Pagination';
 
 function Home({ searchValue }) {
    const dispatch = useDispatch();
-   const { categoryId, sort } = useSelector((state) => state.filter);
+   const { categoryId, sort, currentPagePaginate } = useSelector((state) => state.filter);
    const selectedSort = sort;
+   const currentPage = currentPagePaginate;
 
    const [items, setItems] = React.useState([]);
    const [isLoading, setIsLoading] = React.useState(true);
-
-   const [currentPage, setCurrentPage] = React.useState(1);
 
    const category = categoryId > 0 ? `&category=${categoryId}` : '';
 
@@ -33,7 +32,7 @@ function Home({ searchValue }) {
    };
 
    const clickPagination = (page) => {
-      setCurrentPage(page);
+      dispatch(setCurrentPage(page));
    };
 
    React.useEffect(() => {
