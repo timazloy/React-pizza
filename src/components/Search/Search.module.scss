@@ -1,5 +1,5 @@
 .input {
-  padding: 10px;
+  padding: 10px 30px 10px 10px;
   border-radius: 10px;
   border: 1px solid #beb7b7;
   max-width: 350px;
@@ -9,4 +9,26 @@
   &:focus {
     max-width: 500px;
   }
+}
+
+.active {
+  max-width: 500px;
+}
+
+.wrapper {
+  max-width: 450px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.close {
+  cursor: pointer;
+  width: 20px;
+  position: absolute;
+  right: 10px;
+  background: none;
+  border: none;
+  height: 20px;
 }

@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setCategoryId, setSelectedSort } from '../redux/slices/filterSlices';
+import axios from 'axios';
 
 import '../scss/app.scss';
 import '../App.css';
@@ -13,15 +14,15 @@ import Pagination from '../components/Pagination';
 
 function Home({ searchValue }) {
    const dispatch = useDispatch();
-   const categoryId = useSelector((state) => state.filter.categoryId);
-   const selectedSort = useSelector((state) => state.filter.sort);
+   const { categoryId, sort } = useSelector((state) => state.filter);
+   const selectedSort = sort;
 
    const [items, setItems] = React.useState([]);
    const [isLoading, setIsLoading] = React.useState(true);
 
    const [currentPage, setCurrentPage] = React.useState(1);
 
-   const category = categoryId > 0 ? `category=${categoryId}` : '';
+   const category = categoryId > 0 ? `&category=${categoryId}` : '';
 
    const clickCategory = (id) => {
       dispatch(setCategoryId(id));
@@ -37,12 +38,12 @@ function Home({ searchValue }) {
 
    React.useEffect(() => {
       setIsLoading(true);
-      fetch(
-         `https://639f35a97aaf11ceb8954a67.mockapi.io/Themes?page=${currentPage}&limit=8${category}&sortBy=${selectedSort.sort}&order=${selectedSort.direction}&search=${searchValue}`
-      )
-         .then((res) => res.json())
-         .then((json) => {
-            setItems(json);
+      axios
+         .get(
+            `https://639f35a97aaf11ceb8954a67.mockapi.io/Themes?page=${currentPage}&limit=8${category}&sortBy=${selectedSort.sort}&order=${selectedSort.direction}&search=${searchValue}`
+         )
+         .then((res) => {
+            setItems(res.data);
             setIsLoading(false);
          });
    }, [categoryId, selectedSort, searchValue, currentPage]);
