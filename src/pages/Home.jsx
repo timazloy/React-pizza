@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { setCategoryId } from '../redux/slices/filterSlices';
+import { setCategoryId, setSelectedSort } from '../redux/slices/filterSlices';
 
 import '../scss/app.scss';
 import '../App.css';
@@ -14,33 +14,21 @@ import Pagination from '../components/Pagination';
 function Home({ searchValue }) {
    const dispatch = useDispatch();
    const categoryId = useSelector((state) => state.filter.categoryId);
+   const selectedSort = useSelector((state) => state.filter.sort);
 
    const [items, setItems] = React.useState([]);
    const [isLoading, setIsLoading] = React.useState(true);
 
    const [currentPage, setCurrentPage] = React.useState(1);
 
-   // const [categoryId, setCategoryId] = React.useState(0);
-   const [selectedSort, setSelectedSort] = React.useState({
-      name: 'популярности (DESC)',
-      sort: 'rating',
-      direction: 'desc'
-   });
-
    const category = categoryId > 0 ? `category=${categoryId}` : '';
 
-   // const onClickCategory = (id) => {};
-
    const clickCategory = (id) => {
-      // setCategoryId(i);
-      console.log(id);
       dispatch(setCategoryId(id));
    };
 
-   console.log(categoryId);
-
    const sortItems = (obj) => {
-      setSelectedSort(obj);
+      dispatch(setSelectedSort(obj));
    };
 
    const clickPagination = (page) => {
