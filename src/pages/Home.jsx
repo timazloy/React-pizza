@@ -2,6 +2,8 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setCategoryId, setSelectedSort, setCurrentPage } from '../redux/slices/filterSlices';
 import axios from 'axios';
+import qs from 'qs';
+import { useNavigate } from 'react-router-dom';
 
 import '../scss/app.scss';
 import '../App.css';
@@ -13,6 +15,7 @@ import PizzaBlock from '../components/PizzaBlock';
 import Pagination from '../components/Pagination';
 
 function Home({ searchValue }) {
+   const navigate = useNavigate();
    const dispatch = useDispatch();
    const { categoryId, sort, currentPagePaginate } = useSelector((state) => state.filter);
    const selectedSort = sort;
@@ -46,6 +49,16 @@ function Home({ searchValue }) {
             setIsLoading(false);
          });
    }, [categoryId, selectedSort, searchValue, currentPage]);
+
+   React.useEffect(() => {
+      const queryString = qs.stringify({
+         sortProperty: currentPage,
+         categoryId,
+         selectedSort
+      });
+
+      navigate(`?${queryString}`);
+   }, [categoryId, selectedSort, currentPage]);
 
    return (
       <div className='content'>
