@@ -35,6 +35,15 @@ export const sortSettingItems = [
 
 function Sort({ selectedSort, sortItems }) {
    const [openSort, setOpenSort] = React.useState(false);
+   const sortRef = React.useRef();
+
+   React.useEffect(() => {
+      document.body.addEventListener('click', (event) => {
+         if (!event.composedPath().includes(sortRef.current)) {
+            setOpenSort(false);
+         }
+      });
+   }, []);
 
    const activeSort = selectedSort.name;
 
@@ -44,7 +53,7 @@ function Sort({ selectedSort, sortItems }) {
    };
 
    return (
-      <div className='sort'>
+      <div className='sort' ref={sortRef}>
          <div className='sort__label' onClick={() => setOpenSort(!openSort)}>
             <svg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'>
                <path

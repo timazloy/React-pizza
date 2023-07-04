@@ -17,6 +17,9 @@ import Pagination from '../components/Pagination';
 function Home({ searchValue }) {
    const navigate = useNavigate();
    const dispatch = useDispatch();
+   const isSearch = React.useRef(false);
+   const isMount = React.useRef(false);
+
    const { categoryId, sort, currentPagePaginate } = useSelector((state) => state.filter);
    const selectedSort = sort;
    const currentPage = currentPagePaginate;
@@ -38,16 +41,7 @@ function Home({ searchValue }) {
       dispatch(setCurrentPage(page));
    };
 
-   React.useEffect(() => {
-      if (window.location.search) {
-         const params = qs.parse(window.location.search.substring(1));
-
-         const sort = sortSettingItems.find((obj) => obj.sort === params.selectedSort.sort);
-         dispatch(setFilters({ ...params, sort }));
-      }
-   }, []);
-
-   React.useEffect(() => {
+   const fetchPizzas = () => {
       setIsLoading(true);
       axios
          .get(
@@ -57,16 +51,44 @@ function Home({ searchValue }) {
             setItems(res.data);
             setIsLoading(false);
          });
+   };
+
+   // Если был первый рендер, то проверяем URL-параметры и сохраняем в redux
+   React.useEffect(() => {
+      if (window.location.search) {
+         const params = qs.parse(window.location.search.substring(1));
+
+         const sort = sortSettingItems.find((obj) => obj.sort === params.selectedSort.sort);
+         dispatch(setFilters({ ...params, sort }));
+
+         isSearch.current = true;
+      }
+   }, []);
+
+   // Если был первый рендер, то запрашиваем пиццы
+   React.useEffect(() => {
+      window.scrollTo(0, 0);
+
+      if (!isSearch.current) {
+         fetchPizzas();
+      }
+
+      isSearch.current = false;
    }, [categoryId, selectedSort, searchValue, currentPage]);
 
+   // Ели изменили параметры и был первый рендер
    React.useEffect(() => {
-      const queryString = qs.stringify({
-         sortProperty: currentPage,
-         categoryId,
-         selectedSort
-      });
+      if (isMount.current) {
+         const queryString = qs.stringify({
+            sortProperty: currentPage,
+            categoryId,
+            selectedSort
+         });
 
-      navigate(`?${queryString}`);
+         navigate(`?${queryString}`);
+      }
+
+      isMount.current = true;
    }, [categoryId, selectedSort, currentPage]);
 
    return (
