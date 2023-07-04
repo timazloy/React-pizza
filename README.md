@@ -16,7 +16,6 @@
 - ESLint
 - CSS-Modules / SCSS
 - React Content Loader
-- React Pagination
 - Lodash.Debounce
 - Code Splitting, React Loadable, useWhyDidYouUpdate
 
@@ -25,8 +24,7 @@
 - Сортировка по категориям, цене, алфавиту и рейтингу.
 - Поиск по товарам (из-за ограничений mockApi некорректно работает вместе с выбором категории)
 - Пагинация
-
-- 
+- Сохрание параметров фильтрации в URL
 
 ### Описание:
 

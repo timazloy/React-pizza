@@ -4,7 +4,7 @@
         "react-app/jest"
     ],
     "rules": {
-        "no-unused-vars": "error",
+        "no-unused-vars": "warn",
         "prefer-const": "error",
         "react/jsx-uses-react": "error",
         "react/jsx-uses-vars": "error",

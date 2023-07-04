@@ -1,44 +1,45 @@
 import React from 'react';
 
+export const sortSettings1 = [
+   {
+      name: 'популярности (DESC)',
+      sort: 'rating',
+      direction: 'desc'
+   },
+   {
+      name: 'популярности (ASC)',
+      sort: 'rating',
+      direction: 'asc'
+   },
+   {
+      name: 'цене (DESC)',
+      sort: 'price',
+      direction: 'desc'
+   },
+   {
+      name: 'цене (ASC)',
+      sort: 'price',
+      direction: 'asc'
+   },
+   {
+      name: 'алфавиту (DESC)',
+      sort: 'title',
+      direction: 'desc'
+   },
+   {
+      name: 'алфавиту (ASC)',
+      sort: 'title',
+      direction: 'asc'
+   }
+];
+
 function Sort({ selectedSort, sortItems }) {
    const [openSort, setOpenSort] = React.useState(false);
 
-   const items = [
-      {
-         name: 'популярности (DESC)',
-         sort: 'rating',
-         direction: 'desc'
-      },
-      {
-         name: 'популярности (ASC)',
-         sort: 'rating',
-         direction: 'asc'
-      },
-      {
-         name: 'цене (DESC)',
-         sort: 'price',
-         direction: 'desc'
-      },
-      {
-         name: 'цене (ASC)',
-         sort: 'price',
-         direction: 'asc'
-      },
-      {
-         name: 'алфавиту (DESC)',
-         sort: 'title',
-         direction: 'desc'
-      },
-      {
-         name: 'алфавиту (ASC)',
-         sort: 'title',
-         direction: 'asc'
-      }
-   ];
    const activeSort = selectedSort.name;
 
-   const clickSortItem = (i, selectedSort, sortItem) => {
-      sortItems(items[i]);
+   const clickSortItem = (obj) => {
+      sortItems(obj);
       setOpenSort(false);
    };
 
@@ -57,8 +58,12 @@ function Sort({ selectedSort, sortItems }) {
          {openSort && (
             <div className='sort__popup'>
                <ul>
-                  {items.map((sortItem, i) => (
-                     <li onClick={() => clickSortItem(i)} key={i} className={selectedSort.name === sortItem.name ? 'active' : ''}>
+                  {sortSettings1.map((sortItem, i) => (
+                     <li
+                        onClick={() => clickSortItem(sortItem)}
+                        key={i}
+                        className={selectedSort.name === sortItem.name ? 'active' : ''}
+                     >
                         {sortItem.name}
                      </li>
                   ))}

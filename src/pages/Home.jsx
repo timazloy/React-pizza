@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { setCategoryId, setSelectedSort, setCurrentPage } from '../redux/slices/filterSlices';
+import { setCategoryId, setSelectedSort, setCurrentPage, setFilters } from '../redux/slices/filterSlices';
 import axios from 'axios';
 import qs from 'qs';
 import { useNavigate } from 'react-router-dom';
@@ -9,7 +9,7 @@ import '../scss/app.scss';
 import '../App.css';
 
 import Categories from '../components/Categories';
-import Sort from '../components/Sort';
+import Sort, { sortSettings1 } from '../components/Sort';
 import Skeleton from '../components/PizzaBlock/Skeleton';
 import PizzaBlock from '../components/PizzaBlock';
 import Pagination from '../components/Pagination';
@@ -37,6 +37,15 @@ function Home({ searchValue }) {
    const clickPagination = (page) => {
       dispatch(setCurrentPage(page));
    };
+
+   React.useEffect(() => {
+      if (window.location.search) {
+         const params = qs.parse(window.location.search.substring(1));
+
+         const sort = sortSettings1.find((obj) => obj.sort === params.selectedSort.sort);
+         dispatch(setFilters({ ...params, sort }));
+      }
+   }, []);
 
    React.useEffect(() => {
       setIsLoading(true);
