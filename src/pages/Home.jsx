@@ -9,7 +9,7 @@ import '../scss/app.scss';
 import '../App.css';
 
 import Categories from '../components/Categories';
-import Sort, { sortSettings1 } from '../components/Sort';
+import Sort, { sortSettingItems } from '../components/Sort';
 import Skeleton from '../components/PizzaBlock/Skeleton';
 import PizzaBlock from '../components/PizzaBlock';
 import Pagination from '../components/Pagination';
@@ -42,7 +42,7 @@ function Home({ searchValue }) {
       if (window.location.search) {
          const params = qs.parse(window.location.search.substring(1));
 
-         const sort = sortSettings1.find((obj) => obj.sort === params.selectedSort.sort);
+         const sort = sortSettingItems.find((obj) => obj.sort === params.selectedSort.sort);
          dispatch(setFilters({ ...params, sort }));
       }
    }, []);

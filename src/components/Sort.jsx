@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const sortSettings1 = [
+export const sortSettingItems = [
    {
       name: 'популярности (DESC)',
       sort: 'rating',
@@ -58,7 +58,7 @@ function Sort({ selectedSort, sortItems }) {
          {openSort && (
             <div className='sort__popup'>
                <ul>
-                  {sortSettings1.map((sortItem, i) => (
+                  {sortSettingItems.map((sortItem, i) => (
                      <li
                         onClick={() => clickSortItem(sortItem)}
                         key={i}
