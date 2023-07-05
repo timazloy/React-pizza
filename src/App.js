@@ -6,6 +6,7 @@ import './scss/app.scss';
 
 import Home from './pages/Home';
 import Header from './components/Header';
+import Cart from './pages/Cart/Cart';
 import NotFound from './pages/NotFound';
 
 export const SearchContext = React.createContext();
@@ -22,6 +23,7 @@ function App() {
                   <Routes>
                      <Route path='/' element={<Home searchValue={searchValue} />} />
                      <Route path='*' element={<NotFound />} />
+                     <Route path='/cart' element={<Cart />} />
                   </Routes>
                </div>
             </div>
