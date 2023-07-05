@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import CartItem from '../../components/CartItem/CartItem';
 
 function Cart() {
-   const { cartItems, totalPrice } = useSelector((state) => state.cart);
+   const { cartItems, totalPrice, totalCount } = useSelector((state) => state.cart);
 
    React.useEffect(() => {
       console.log(cartItems);
@@ -87,7 +87,7 @@ function Cart() {
                   <div className='cart__bottom-details'>
                      <span>
                         {' '}
-                        Всего пицц: <b>3 шт.</b>{' '}
+                        Всего пицц: <b>{totalCount} шт.</b>{' '}
                      </span>
                      <span>
                         {' '}
