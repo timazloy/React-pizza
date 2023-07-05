@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { addToCart } from '../../redux/slices/cartSlice';
 
-function PizzaBlock({ title, imageUrl, types, sizes, price, category, rating, id }) {
+function PizzaBlock({ title, imageUrl, types, sizes, price, id }) {
    const [activeSize, setActiveSize] = React.useState(0);
    const [activeType, setActiveType] = React.useState(0);
    const typeNames = ['тонкое', 'традиционное'];
@@ -56,7 +56,7 @@ function PizzaBlock({ title, imageUrl, types, sizes, price, category, rating, id
                   />
                </svg>
                <span>Добавить</span>
-               <i>2</i>
+               <i>0</i>
             </button>
          </div>
       </div>
