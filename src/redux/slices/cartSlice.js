@@ -11,6 +11,16 @@ const cartSlice = createSlice({
    name: 'cart',
    initialState,
    reducers: {
+      onMinusCount(state, action) {
+         state.cartItems.find((obj) => {
+            if (obj.id === action.payload[0] && obj.size === action.payload[2] && obj.type === action.payload[1]) obj.count--;
+         });
+      },
+      onPlusCount(state, action) {
+         state.cartItems.find((obj) => {
+            if (obj.id === action.payload[0] && obj.size === action.payload[2] && obj.type === action.payload[1]) obj.count++;
+         });
+      },
       addToCart(state, action) {
          const findItem = state.cartItems.find((obj) => {
             if (obj.id === action.payload.id && obj.size === action.payload.size && obj.type === action.payload.type) return obj;
@@ -33,5 +43,5 @@ const cartSlice = createSlice({
    }
 });
 
-export const { addToCart, getCountForCartBlock } = cartSlice.actions;
+export const { addToCart, onPlusCount, onMinusCount } = cartSlice.actions;
 export default cartSlice.reducer;

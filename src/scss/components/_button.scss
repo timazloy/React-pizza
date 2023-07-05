@@ -12,6 +12,12 @@
   border: 1px solid transparent;
   @include noselect();
 
+
+  &--disabled {
+    pointer-events: none;
+    opacity: 0.4;
+  }
+
   &,
   span {
     color: #fff;
