@@ -20,7 +20,8 @@ function PizzaBlock({ title, imageUrl, types, sizes, price, category, rating, id
             img: imageUrl,
             price,
             type,
-            size
+            size,
+            count: 1
          })
       );
    };

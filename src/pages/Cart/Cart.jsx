@@ -41,7 +41,8 @@ function Cart() {
                      </svg>
                      Корзина
                   </h2>
-                  <div className='cart__clear'>
+
+                  <button type='button' className='cart__clear'>
                      <svg width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'>
                         <path
                            d='M2.5 5H4.16667H17.5'
@@ -74,13 +75,14 @@ function Cart() {
                      </svg>
 
                      <span>Очистить корзину</span>
-                  </div>
+                  </button>
                </div>
                <div className='content__items'>
                   {cartItems.map((itemCart, i) => (
                      <CartItem {...itemCart} key={itemCart.id} />
                   ))}
                </div>
+               <h1>test</h1>
                <div className='cart__bottom'>
                   <div className='cart__bottom-details'>
                      <span>
