@@ -2,10 +2,13 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import CartItem from '../../components/CartItem/CartItem';
-import PizzaBlock from '../../components/PizzaBlock';
 
 function Cart() {
-   const { cartItems } = useSelector((state) => state.cart);
+   const { cartItems, totalPrice } = useSelector((state) => state.cart);
+
+   React.useEffect(() => {
+      console.log(cartItems);
+   }, [cartItems]);
 
    return (
       <div className='content'>
@@ -86,7 +89,7 @@ function Cart() {
                      </span>
                      <span>
                         {' '}
-                        Сумма заказа: <b>900 ₽</b>{' '}
+                        Сумма заказа: <b>{totalPrice} ₽</b>{' '}
                      </span>
                   </div>
                   <div className='cart__bottom-buttons'>
