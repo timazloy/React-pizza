@@ -6,10 +6,6 @@ import CartItem from '../../components/CartItem/CartItem';
 function Cart() {
    const { cartItems, totalPrice, totalCount } = useSelector((state) => state.cart);
 
-   React.useEffect(() => {
-      console.log(cartItems);
-   }, [cartItems]);
-
    return (
       <div className='content'>
          <div className='container container--cart'>
