@@ -17,6 +17,20 @@ const cartSlice = createSlice({
          state.cartItems = state.cartItems.filter((item) => {
             return item.id !== id || item.type !== type || item.size !== size;
          });
+
+         cartSlice.caseReducers.calcTotalCount(state);
+         cartSlice.caseReducers.calcTotalPrice(state);
+      },
+
+      calcTotalPrice(state, action) {
+         state.totalPrice = state.cartItems.reduce((sum, obj) => {
+            return sum + obj.price * obj.count;
+         }, 0);
+      },
+      calcTotalCount(state, action) {
+         state.totalCount = state.cartItems.reduce((sum, obj) => {
+            return sum + obj.count;
+         }, 0);
       },
       onMinusCount(state, action) {
          const { id, type, size } = action.payload;
@@ -41,13 +55,11 @@ const cartSlice = createSlice({
             state.cartItems.push(action.payload);
          }
 
-         state.totalCount = state.cartItems.reduce((sum, obj) => {
-            return sum + obj.count;
-         }, 0);
-
-         state.totalPrice = state.cartItems.reduce((sum, obj) => {
-            return sum + obj.price * obj.count;
-         }, 0);
+         // state.totalCount = state.cartItems.reduce((sum, obj) => {
+         //    return sum + obj.count;
+         // }, 0);
+         cartSlice.caseReducers.calcTotalCount(state);
+         cartSlice.caseReducers.calcTotalPrice(state);
       }
    }
 });
