@@ -11,6 +11,11 @@ const cartSlice = createSlice({
    name: 'cart',
    initialState,
    reducers: {
+      clearCart(state, action) {
+         state.cartItems = [];
+         cartSlice.caseReducers.calcTotalCount(state);
+         cartSlice.caseReducers.calcTotalPrice(state);
+      },
       onDeleteItem(state, action) {
          const { id, type, size } = action.payload;
 
@@ -55,14 +60,11 @@ const cartSlice = createSlice({
             state.cartItems.push(action.payload);
          }
 
-         // state.totalCount = state.cartItems.reduce((sum, obj) => {
-         //    return sum + obj.count;
-         // }, 0);
          cartSlice.caseReducers.calcTotalCount(state);
          cartSlice.caseReducers.calcTotalPrice(state);
       }
    }
 });
 
-export const { addToCart, onPlusCount, onMinusCount, onDeleteItem } = cartSlice.actions;
+export const { addToCart, onPlusCount, onMinusCount, onDeleteItem, clearCart } = cartSlice.actions;
 export default cartSlice.reducer;

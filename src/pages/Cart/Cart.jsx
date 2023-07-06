@@ -1,10 +1,17 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { clearCart } from '../../redux/slices/cartSlice';
 
+import 
 import CartItem from '../../components/CartItem/CartItem';
 
 function Cart() {
    const { cartItems, totalPrice, totalCount } = useSelector((state) => state.cart);
+   const dispatch = useDispatch();
+
+   const clickClearCart = () => {
+      dispatch(clearCart());
+   };
 
    return (
       <div className='content'>
@@ -38,7 +45,7 @@ function Cart() {
                      Корзина
                   </h2>
 
-                  <button type='button' className='cart__clear'>
+                  <button onClick={clickClearCart} type='button' className='cart__clear'>
                      <svg width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'>
                         <path
                            d='M2.5 5H4.16667H17.5'
@@ -78,7 +85,6 @@ function Cart() {
                      <CartItem {...itemCart} key={itemCart.id} />
                   ))}
                </div>
-               <h1>test</h1>
                <div className='cart__bottom'>
                   <div className='cart__bottom-details'>
                      <span>

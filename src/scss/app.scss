@@ -76,6 +76,8 @@ body {
   }
 
   &__clear {
+    background: transparent;
+    border: transparent;
     display: flex;
     align-items: center;
     cursor: pointer;
