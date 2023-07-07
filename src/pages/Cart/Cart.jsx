@@ -2,8 +2,8 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { clearCart } from '../../redux/slices/cartSlice';
 
-import 
 import CartItem from '../../components/CartItem/CartItem';
+import CartEmpty from '../../components/CartEmpty/CartEmpty';
 
 function Cart() {
    const { cartItems, totalPrice, totalCount } = useSelector((state) => state.cart);
@@ -12,6 +12,10 @@ function Cart() {
    const clickClearCart = () => {
       dispatch(clearCart());
    };
+
+   if (!totalPrice) {
+      return <CartEmpty />;
+   }
 
    return (
       <div className='content'>
