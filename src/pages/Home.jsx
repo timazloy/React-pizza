@@ -13,6 +13,7 @@ import Sort, { sortSettingItems } from '../components/Sort';
 import Skeleton from '../components/PizzaBlock/Skeleton';
 import PizzaBlock from '../components/PizzaBlock';
 import Pagination from '../components/Pagination';
+import Error from '../components/Error/Error';
 
 function Home({ searchValue }) {
    const navigate = useNavigate();
@@ -26,6 +27,7 @@ function Home({ searchValue }) {
 
    const [items, setItems] = React.useState([]);
    const [isLoading, setIsLoading] = React.useState(true);
+   const [pizzasError, setPizzasError] = React.useState(false);
 
    const category = categoryId > 0 ? `&category=${categoryId}` : '';
 
@@ -41,16 +43,19 @@ function Home({ searchValue }) {
       dispatch(setCurrentPage(page));
    };
 
-   const fetchPizzas = () => {
-      setIsLoading(true);
-      axios
-         .get(
+   const fetchPizzas = async () => {
+      try {
+         setIsLoading(true);
+         const res = await axios.get(
             `https://639f35a97aaf11ceb8954a67.mockapi.io/Themes?page=${currentPage}&limit=8${category}&sortBy=${selectedSort.sort}&order=${selectedSort.direction}&search=${searchValue}`
-         )
-         .then((res) => {
-            setItems(res.data);
-            setIsLoading(false);
-         });
+         );
+         setItems(res.data);
+      } catch (error) {
+         console.log(error);
+         setPizzasError(true);
+      } finally {
+         setIsLoading(false);
+      }
    };
 
    // Если был первый рендер, то проверяем URL-параметры и сохраняем в redux
@@ -100,9 +105,13 @@ function Home({ searchValue }) {
             </div>
             <h2 className='content__title'>Все пиццы</h2>
             <div className='content__items'>
-               {isLoading
-                  ? [...new Array(8)].map((_, i) => <Skeleton key={i} />)
-                  : items.map((pizza, i) => <PizzaBlock {...pizza} key={pizza.id} />)}
+               {pizzasError ? (
+                  <Error />
+               ) : isLoading ? (
+                  [...new Array(8)].map((_, i) => <Skeleton key={i} />)
+               ) : (
+                  items.map((pizza, i) => <PizzaBlock {...pizza} key={pizza.id} />)
+               )}
             </div>
             <Pagination currentPage={currentPage} clickPagination={(page) => clickPagination(page)} />
          </div>

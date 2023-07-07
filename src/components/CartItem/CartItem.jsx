@@ -26,7 +26,7 @@ function CartItem({ id, title, img, price, type, size, count }) {
                {type} тесто, {size} см.
             </p>
             <span>
-               <b>{price}</b> ₽ 1 шт.
+               <b>{price}</b> ₽
             </span>
          </div>
          <div className='cart__item-count'>
