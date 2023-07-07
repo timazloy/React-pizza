@@ -113,7 +113,7 @@ function Home({ searchValue }) {
                   items.map((pizza, i) => <PizzaBlock {...pizza} key={pizza.id} />)
                )}
             </div>
-            <Pagination currentPage={currentPage} clickPagination={(page) => clickPagination(page)} />
+            {!pizzasError && <Pagination currentPage={currentPage} clickPagination={(page) => clickPagination(page)} />}
          </div>
       </div>
    );

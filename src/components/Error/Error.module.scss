@@ -1,0 +1,25 @@
+.root {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+
+  &__img {
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+  }
+
+  &__title {
+    color: #fe5f1e;
+    position: absolute;
+    left: 1px;
+  }
+
+  &__subtitle {
+    color: #fe5f1e;
+    position: absolute;
+    bottom: 26px;
+    right: 85px;
+  }
+}
