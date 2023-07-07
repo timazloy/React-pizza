@@ -4,6 +4,7 @@ import { clearCart } from '../../redux/slices/cartSlice';
 
 import CartItem from '../../components/CartItem/CartItem';
 import CartEmpty from '../../components/CartEmpty/CartEmpty';
+import { Link } from 'react-router-dom';
 
 function Cart() {
    const { cartItems, totalPrice, totalCount } = useSelector((state) => state.cart);
@@ -101,7 +102,7 @@ function Cart() {
                      </span>
                   </div>
                   <div className='cart__bottom-buttons'>
-                     <a href='/' className='button button--outline button--add go-back-btn'>
+                     <Link to='/' className='button button--outline button--add go-back-btn'>
                         <svg width='8' height='14' viewBox='0 0 8 14' fill='none' xmlns='http://www.w3.org/2000/svg'>
                            <path
                               d='M7 13L1 6.93015L6.86175 1'
@@ -113,7 +114,7 @@ function Cart() {
                         </svg>
 
                         <span>Вернуться назад</span>
-                     </a>
+                     </Link>
                      <div className='button pay-btn'>
                         <span>Оплатить сейчас</span>
                      </div>

@@ -42,12 +42,16 @@ const cartSlice = createSlice({
          state.cartItems.find((obj) => {
             if (obj.id === id && obj.size === size && obj.type === type) obj.count--;
          });
+         cartSlice.caseReducers.calcTotalCount(state);
+         cartSlice.caseReducers.calcTotalPrice(state);
       },
       onPlusCount(state, action) {
          const { id, type, size } = action.payload;
          state.cartItems.filter((obj) => {
             if (obj.id === id && obj.size === size && obj.type === type) obj.count++;
          });
+         cartSlice.caseReducers.calcTotalCount(state);
+         cartSlice.caseReducers.calcTotalPrice(state);
       },
       addToCart(state, action) {
          const findItem = state.cartItems.find((obj) => {

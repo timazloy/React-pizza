@@ -25,6 +25,9 @@ function CartItem({ id, title, img, price, type, size, count }) {
             <p>
                {type} тесто, {size} см.
             </p>
+            <span>
+               <b>{price}</b> ₽ 1 шт.
+            </span>
          </div>
          <div className='cart__item-count'>
             <button
@@ -70,7 +73,7 @@ function CartItem({ id, title, img, price, type, size, count }) {
             </button>
          </div>
          <div className='cart__item-price'>
-            <b>{price} ₽</b>
+            <b>{price * count} ₽</b>
          </div>
          <button onClick={onClickRemove} type='button' className='cart__item-remove'>
             <div className='button button--outline button--circle'>

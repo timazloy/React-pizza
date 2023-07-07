@@ -183,6 +183,8 @@ body {
       align-items: center;
       justify-content: flex-end;
       width: 4%;
+      background: unset;
+      border: unset;
 
       .button {
         border-color: darken($color: $gray-line, $amount: 10);
