@@ -1,8 +1,7 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setCategoryId, setSelectedSort, setCurrentPage, setFilters } from '../redux/slices/filterSlices';
-import { setItems } from '../redux/slices/pizzasSlice';
-import axios from 'axios';
+import { fetchPizzas } from '../redux/slices/pizzasSlice';
 import qs from 'qs';
 import { useNavigate } from 'react-router-dom';
 
@@ -23,12 +22,11 @@ function Home({ searchValue }) {
    const isMount = React.useRef(false);
 
    const { categoryId, sort, currentPagePaginate } = useSelector((state) => state.filter);
-   const items = useSelector((state) => state.pizza.items);
+   const { items, status } = useSelector((state) => state.pizza);
    const selectedSort = sort;
+   const activeSort = sort.sort;
+   const selectedDirection = sort.direction;
    const currentPage = currentPagePaginate;
-
-   const [isLoading, setIsLoading] = React.useState(true);
-   const [pizzasError, setPizzasError] = React.useState(false);
 
    const category = categoryId > 0 ? `&category=${categoryId}` : '';
 
@@ -44,18 +42,9 @@ function Home({ searchValue }) {
       dispatch(setCurrentPage(page));
    };
 
-   const fetchPizzas = async () => {
-      try {
-         setIsLoading(true);
-         const { data } = await axios.get(
-            `https://639f35a97aaf11ceb8954a67.mockapi.io/Themes?page=${currentPage}&limit=8${category}&sortBy=${selectedSort.sort}&order=${selectedSort.direction}&search=${searchValue}`
-         );
-         dispatch(setItems(data));
-      } catch (error) {
-         setPizzasError(true);
-      } finally {
-         setIsLoading(false);
-      }
+   const getPizzas = async () => {
+      dispatch(fetchPizzas({ currentPage, category, activeSort, selectedDirection, searchValue }));
+      window.scrollTo(0, 0);
    };
 
    // Если был первый рендер, то проверяем URL-параметры и сохраняем в redux
@@ -75,7 +64,7 @@ function Home({ searchValue }) {
       window.scrollTo(0, 0);
 
       if (!isSearch.current) {
-         fetchPizzas();
+         getPizzas();
       }
 
       isSearch.current = false;
@@ -105,15 +94,15 @@ function Home({ searchValue }) {
             </div>
             <h2 className='content__title'>Все пиццы</h2>
             <div className='content__items'>
-               {pizzasError ? (
+               {status === 'error' ? (
                   <Error />
-               ) : isLoading ? (
+               ) : status === 'loading' ? (
                   [...new Array(8)].map((_, i) => <Skeleton key={i} />)
                ) : (
                   items.map((pizza, i) => <PizzaBlock {...pizza} key={pizza.id} />)
                )}
             </div>
-            {!pizzasError && <Pagination currentPage={currentPage} clickPagination={(page) => clickPagination(page)} />}
+            {status === 'success' && <Pagination currentPage={currentPage} clickPagination={(page) => clickPagination(page)} />}
          </div>
       </div>
    );
