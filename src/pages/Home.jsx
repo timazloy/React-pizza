@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setCategoryId, setSelectedSort, setCurrentPage, setFilters } from '../redux/slices/filterSlices';
+import { setItems } from '../redux/slices/pizzasSlice';
 import axios from 'axios';
 import qs from 'qs';
 import { useNavigate } from 'react-router-dom';
@@ -22,10 +23,10 @@ function Home({ searchValue }) {
    const isMount = React.useRef(false);
 
    const { categoryId, sort, currentPagePaginate } = useSelector((state) => state.filter);
+   const items = useSelector((state) => state.pizza.items);
    const selectedSort = sort;
    const currentPage = currentPagePaginate;
 
-   const [items, setItems] = React.useState([]);
    const [isLoading, setIsLoading] = React.useState(true);
    const [pizzasError, setPizzasError] = React.useState(false);
 
@@ -46,12 +47,11 @@ function Home({ searchValue }) {
    const fetchPizzas = async () => {
       try {
          setIsLoading(true);
-         const res = await axios.get(
+         const { data } = await axios.get(
             `https://639f35a97aaf11ceb8954a67.mockapi.io/Themes?page=${currentPage}&limit=8${category}&sortBy=${selectedSort.sort}&order=${selectedSort.direction}&search=${searchValue}`
          );
-         setItems(res.data);
+         dispatch(setItems(data));
       } catch (error) {
-         console.log(error);
          setPizzasError(true);
       } finally {
          setIsLoading(false);
