@@ -1,13 +1,13 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { clearCart } from '../../redux/slices/cartSlice';
+import { clearCart, selectedCart } from '../../redux/slices/cartSlice';
 
 import CartItem from '../../components/CartItem/CartItem';
 import CartEmpty from '../../components/CartEmpty/CartEmpty';
 import { Link } from 'react-router-dom';
 
 function Cart() {
-   const { cartItems, totalPrice, totalCount } = useSelector((state) => state.cart);
+   const { cartItems, totalPrice, totalCount } = useSelector(selectedCart);
    const dispatch = useDispatch();
 
    const clickClearCart = () => {

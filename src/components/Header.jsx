@@ -3,9 +3,10 @@ import LogoSvg from '../assets/img/pizza-logo.svg';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import Search from './Search';
+import { selectedCart } from '../redux/slices/cartSlice';
 
 function Header({ searchValue, setSearchValue }) {
-   const { totalPrice, totalCount } = useSelector((state) => state.cart);
+   const { totalPrice, totalCount } = useSelector(selectedCart);
    return (
       <div className='header'>
          <div className='container'>
