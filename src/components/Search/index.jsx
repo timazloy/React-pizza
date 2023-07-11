@@ -7,7 +7,7 @@ import { setSearchValue } from '../../redux/slices/filterSlices';
 
 function Search() {
    const dispatch = useDispatch();
-   const [value, setValue] = React.useState();
+   const [value, setValue] = React.useState('');
 
    const searchValue = useSelector((state) => state.filter);
    const inputRef = React.useRef();
@@ -15,14 +15,14 @@ function Search() {
    const updateSearchValue = React.useCallback(
       debounce((str) => {
          dispatch(setSearchValue(str));
-      }, 300),
+      }, 400),
       []
    );
 
    const onChangeInput = (e) => {
-      setValue(e);
-      dispatch(setSearchValue(e));
-      updateSearchValue(e);
+      const inputValue = e.target.value;
+      setValue(inputValue);
+      updateSearchValue(inputValue);
    };
 
    const clearSearchField = () => {
@@ -37,12 +37,12 @@ function Search() {
             ref={inputRef}
             className={searchValue ? `${styles.input} ${styles.active}` : styles.input}
             value={value}
-            onChange={(e) => onChangeInput(e.target.value)}
+            onChange={onChangeInput}
             type='text'
             placeholder='Найти пиццу...'
          />
          {searchValue && (
-            <button onClick={() => clearSearchField()} className={styles.close} type='button'>
+            <button onClick={clearSearchField} className={styles.close} type='button'>
                <img src={close} alt='close' />
             </button>
          )}
