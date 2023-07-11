@@ -15,13 +15,13 @@ import PizzaBlock from '../components/PizzaBlock';
 import Pagination from '../components/Pagination';
 import Error from '../components/Error/Error';
 
-function Home({ searchValue }) {
+function Home() {
    const navigate = useNavigate();
    const dispatch = useDispatch();
    const isSearch = React.useRef(false);
    const isMount = React.useRef(false);
 
-   const { categoryId, sort, currentPagePaginate } = useSelector((state) => state.filter);
+   const { categoryId, sort, currentPagePaginate, searchValue } = useSelector((state) => state.filter);
    const { items, status } = useSelector((state) => state.pizza);
    const selectedSort = sort;
    const activeSort = sort.sort;

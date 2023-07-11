@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import Search from './Search';
 import { selectedCart } from '../redux/slices/cartSlice';
 
-function Header({ searchValue, setSearchValue }) {
+function Header() {
    const { totalPrice, totalCount } = useSelector(selectedCart);
    return (
       <div className='header'>
@@ -17,7 +17,7 @@ function Header({ searchValue, setSearchValue }) {
                   <p>самая вкусная пицца во вселенной</p>
                </div>
             </Link>
-            <Search searchValue={searchValue} setSearchValue={setSearchValue} />
+            <Search />
             <div className='header__cart'>
                <Link to='/cart' className='button button--cart'>
                   <span>{totalPrice} ₽</span>
