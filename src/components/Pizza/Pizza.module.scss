@@ -1,0 +1,28 @@
+.root {
+  display: flex;
+  justify-content: space-between;
+
+  &__wrapper {
+    max-width: 600px;
+    width: 100%;
+  }
+
+  &__images {
+    position: relative;
+  }
+
+  &__rating {
+    width: 80px;
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+
+  &__ratingNum {
+    position: absolute;
+    left: 28px;
+    top: 17px;
+    color: #2c2c2c;
+    font-size: 40px;
+  }
+}

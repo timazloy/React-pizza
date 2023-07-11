@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { setCategoryId, setSelectedSort, setCurrentPage, setFilters } from '../redux/slices/filterSlices';
 import { fetchPizzas } from '../redux/slices/pizzasSlice';
 import qs from 'qs';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import '../scss/app.scss';
 import '../App.css';
@@ -85,6 +85,13 @@ function Home() {
       isMount.current = true;
    }, [categoryId, selectedSort, currentPage]);
 
+   const skeleton = [...new Array(8)].map((_, i) => <Skeleton key={i} />);
+   const pizzas = items.map((pizza, i) => (
+      <Link key={pizza.id} to={`/pizza/${pizza.id}`}>
+         <PizzaBlock {...pizza} />
+      </Link>
+   ));
+
    return (
       <div className='content'>
          <div className='container'>
@@ -93,15 +100,7 @@ function Home() {
                <Sort selectedSort={selectedSort} sortItems={sortItems} />
             </div>
             <h2 className='content__title'>Все пиццы</h2>
-            <div className='content__items'>
-               {status === 'error' ? (
-                  <Error />
-               ) : status === 'loading' ? (
-                  [...new Array(8)].map((_, i) => <Skeleton key={i} />)
-               ) : (
-                  items.map((pizza, i) => <PizzaBlock {...pizza} key={pizza.id} />)
-               )}
-            </div>
+            <div className='content__items'>{status === 'error' ? <Error /> : status === 'loading' ? skeleton : pizzas}</div>
             {status === 'success' && <Pagination currentPage={currentPage} clickPagination={(page) => clickPagination(page)} />}
          </div>
       </div>
