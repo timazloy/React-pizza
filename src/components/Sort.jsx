@@ -33,7 +33,7 @@ export const sortSettingItems = [
    }
 ];
 
-function Sort({ selectedSort, sortItems }) {
+const Sort = ({ selectedSort, sortItems }) => {
    const [openSort, setOpenSort] = React.useState(false);
    const sortRef = React.useRef();
 
@@ -87,6 +87,6 @@ function Sort({ selectedSort, sortItems }) {
          )}
       </div>
    );
-}
+};
 
 export default Sort;

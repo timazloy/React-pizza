@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './Pagination.module.scss';
 
-function Pagination({ currentPage, clickPagination }) {
+const Pagination: React.FC = ({ currentPage, clickPagination }) => {
    const pages = [1, 2];
 
    return (
@@ -18,6 +18,6 @@ function Pagination({ currentPage, clickPagination }) {
          ))}
       </div>
    );
-}
+};
 
 export default Pagination;

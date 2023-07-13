@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { addToCart } from '../../redux/slices/cartSlice';
 import ratingIMG from '../../assets/img/rating2.svg';
 
-function PizzaBlock({ title, imageUrl, types, sizes, price, id, rating }) {
+const PizzaBlock = ({ title, imageUrl, types, sizes, price, id, rating }) => {
    const [activeSize, setActiveSize] = React.useState(0);
    const [activeType, setActiveType] = React.useState(0);
    const typeNames = ['тонкое', 'традиционное'];
@@ -66,6 +66,6 @@ function PizzaBlock({ title, imageUrl, types, sizes, price, id, rating }) {
          </div>
       </div>
    );
-}
+};
 
 export default PizzaBlock;

@@ -4,7 +4,7 @@ import axios from 'axios';
 import styles from './Pizza.module.scss';
 import rating from '../../assets/img/rating2.svg';
 
-function Pizza() {
+const Pizza: React.FC = () => {
    const [pizza, setPizza] = React.useState({});
    const { id } = useParams();
 
@@ -41,6 +41,6 @@ function Pizza() {
          </div>
       </div>
    );
-}
+};
 
 export default Pizza;

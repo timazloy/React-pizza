@@ -86,7 +86,7 @@ function Home() {
    }, [categoryId, selectedSort, currentPage]);
 
    const skeleton = [...new Array(8)].map((_, i) => <Skeleton key={i} />);
-   const pizzas = items.map((pizza, i) => (
+   const pizzas = items.map((pizza) => (
       <Link key={pizza.id} to={`/pizza/${pizza.id}`}>
          <PizzaBlock {...pizza} />
       </Link>

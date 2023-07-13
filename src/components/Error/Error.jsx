@@ -2,7 +2,7 @@ import React from 'react';
 import ErrorCasino from '../../assets/img/error-casino.gif';
 import styles from './Error.module.scss';
 
-function Error() {
+const Error: React.FC = () => {
    return (
       <div className={styles.root}>
          <h1 className={styles.root__title}>Извините, кажется что-то сломалось...</h1>
@@ -10,6 +10,6 @@ function Error() {
          <h2 className={styles.root__subtitle}>...починим в ближайшее время</h2>
       </div>
    );
-}
+};
 
 export default Error;

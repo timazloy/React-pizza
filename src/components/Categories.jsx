@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Categories({ categoryId, clickCategory }) {
+const Categories: React.FC = ({ categoryId, clickCategory }) => {
    const categories = ['Все', 'Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые'];
 
    return (
@@ -16,6 +16,6 @@ function Categories({ categoryId, clickCategory }) {
          </ul>
       </div>
    );
-}
+};
 
 export default Categories;

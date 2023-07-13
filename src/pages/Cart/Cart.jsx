@@ -6,7 +6,7 @@ import CartItem from '../../components/CartItem/CartItem';
 import CartEmpty from '../../components/CartEmpty/CartEmpty';
 import { Link } from 'react-router-dom';
 
-function Cart() {
+const Cart: React.FC = () => {
    const { cartItems, totalPrice, totalCount } = useSelector(selectedCart);
    const dispatch = useDispatch();
 
@@ -124,6 +124,6 @@ function Cart() {
          </div>
       </div>
    );
-}
+};
 
 export default Cart;
