@@ -3,6 +3,22 @@
 .pizza-block {
   width: 280px;
   text-align: center;
+  position: relative;
+
+  &__rating {
+    position: absolute;
+    width: 40px;
+    top: 0;
+    left: 0;
+
+    &-text {
+      position: absolute;
+      left: 15px;
+      top: 11px;
+    }
+  }
+
+
 
   &__image {
     width: 260px;

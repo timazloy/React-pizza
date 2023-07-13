@@ -38,7 +38,6 @@ function Pizza() {
             <h1>{pizza.title}</h1>
             <p>{pizza.description}</p>
             <h1>{pizza.price}</h1>
-            <h1>{pizza.rating}</h1>
          </div>
       </div>
    );

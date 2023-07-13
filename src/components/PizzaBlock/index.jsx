@@ -1,8 +1,9 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { addToCart } from '../../redux/slices/cartSlice';
+import ratingIMG from '../../assets/img/rating2.svg';
 
-function PizzaBlock({ title, imageUrl, types, sizes, price, id }) {
+function PizzaBlock({ title, imageUrl, types, sizes, price, id, rating }) {
    const [activeSize, setActiveSize] = React.useState(0);
    const [activeType, setActiveType] = React.useState(0);
    const typeNames = ['тонкое', 'традиционное'];
@@ -30,6 +31,11 @@ function PizzaBlock({ title, imageUrl, types, sizes, price, id }) {
       <div className='pizza-block'>
          <img className='pizza-block__image' src={imageUrl} alt='Pizza' />
          <h4 className='pizza-block__title'>{title}</h4>
+         <div className='pizza-block__rating'>
+            <img src={ratingIMG} alt='rating' />
+            <span className='pizza-block__rating-text'>{rating}</span>
+         </div>
+
          <div className='pizza-block__selector'>
             <ul>
                {types.map((type, i) => (
