@@ -1,16 +1,17 @@
 import React from 'react';
 import styles from './Search.module.scss';
 import close from '../../assets/img/close.svg';
+// @ts-ignore
 import debounce from 'lodash.debounce';
 import { useSelector, useDispatch } from 'react-redux';
 import { setSearchValue } from '../../redux/slices/filterSlices';
 
-function Search() {
+const Search: React.FC = () => {
    const dispatch = useDispatch();
-   const [value, setValue] = React.useState('');
+   const [value, setValue] = React.useState<string>('');
 
    const searchValue = useSelector((state) => state.filter);
-   const inputRef = React.useRef();
+   const inputRef = React.useRef<HTMLInputElement>();
 
    const updateSearchValue = React.useCallback(
       debounce((str) => {
@@ -28,7 +29,7 @@ function Search() {
    const clearSearchField = () => {
       setValue('');
       dispatch(setSearchValue(''));
-      inputRef.current.focus();
+      inputRef.current?.focus();
    };
 
    return (
@@ -48,6 +49,6 @@ function Search() {
          )}
       </div>
    );
-}
+};
 
 export default Search;

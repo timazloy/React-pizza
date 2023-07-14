@@ -15,7 +15,7 @@ import PizzaBlock from '../components/PizzaBlock';
 import Pagination from '../components/Pagination';
 import Error from '../components/Error/Error';
 
-function Home() {
+const Home: React.FC = () => {
    const navigate = useNavigate();
    const dispatch = useDispatch();
    const isSearch = React.useRef(false);
@@ -30,7 +30,7 @@ function Home() {
 
    const category = categoryId > 0 ? `&category=${categoryId}` : '';
 
-   const clickCategory = (id) => {
+   const clickCategory = (id: number) => {
       dispatch(setCategoryId(id));
    };
 
@@ -38,11 +38,12 @@ function Home() {
       dispatch(setSelectedSort(obj));
    };
 
-   const clickPagination = (page) => {
+   const clickPagination = (page: number) => {
       dispatch(setCurrentPage(page));
    };
 
    const getPizzas = async () => {
+      //@ts-ignore
       dispatch(fetchPizzas({ currentPage, category, activeSort, selectedDirection, searchValue }));
       window.scrollTo(0, 0);
    };
@@ -53,6 +54,7 @@ function Home() {
          const params = qs.parse(window.location.search.substring(1));
 
          const sort = sortSettingItems.find((obj) => obj.sort === params.selectedSort.sort);
+         //@ts-ignore
          dispatch(setFilters({ ...params, sort }));
 
          isSearch.current = true;
@@ -105,6 +107,6 @@ function Home() {
          </div>
       </div>
    );
-}
+};
 
 export default Home;
