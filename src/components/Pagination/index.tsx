@@ -1,7 +1,12 @@
 import React from 'react';
 import styles from './Pagination.module.scss';
 
-const Pagination: React.FC = ({ currentPage, clickPagination }) => {
+type PaginationProps = {
+   currentPage: number;
+   clickPagination: any;
+};
+
+const Pagination: React.FC<PaginationProps> = ({ currentPage, clickPagination }) => {
    const pages = [1, 2];
 
    return (

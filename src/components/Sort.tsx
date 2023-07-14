@@ -1,6 +1,12 @@
 import React from 'react';
 
-export const sortSettingItems = [
+type sortItems = {
+   name: string;
+   sort: string;
+   direction: string;
+};
+
+export const sortSettingItems: sortItems[] = [
    {
       name: 'популярности (DESC)',
       sort: 'rating',
@@ -33,12 +39,14 @@ export const sortSettingItems = [
    }
 ];
 
-const Sort = ({ selectedSort, sortItems }) => {
+const Sort: React.FC = ({ selectedSort, sortItems }) => {
+   console.log(selectedSort);
+   console.log(sortItems);
    const [openSort, setOpenSort] = React.useState(false);
-   const sortRef = React.useRef();
+   const sortRef = React.useRef<HTMLDivElement>(null);
 
    React.useEffect(() => {
-      const handleClickOutside = (event) => {
+      const handleClickOutside = (event: any) => {
          if (!event.composedPath().includes(sortRef.current)) {
             setOpenSort(false);
          }
@@ -53,7 +61,7 @@ const Sort = ({ selectedSort, sortItems }) => {
 
    const activeSort = selectedSort.name;
 
-   const clickSortItem = (obj) => {
+   const clickSortItem = (obj: sortItems) => {
       sortItems(obj);
       setOpenSort(false);
    };

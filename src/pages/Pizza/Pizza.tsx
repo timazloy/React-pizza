@@ -5,7 +5,13 @@ import styles from './Pizza.module.scss';
 import rating from '../../assets/img/rating2.svg';
 
 const Pizza: React.FC = () => {
-   const [pizza, setPizza] = React.useState({});
+   const [pizza, setPizza] = React.useState<{
+      imageUrl: string;
+      title: string;
+      description: string;
+      price: string;
+      rating: string;
+   }>();
    const { id } = useParams();
 
    React.useEffect(() => {

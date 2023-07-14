@@ -8,7 +8,7 @@ import Home from './pages/Home';
 import Header from './components/Header';
 import Cart from './pages/Cart/Cart';
 import NotFound from './pages/NotFound';
-import Pizza from './components/Pizza/Pizza';
+import Pizza from './pages/Pizza/Pizza';
 
 function App() {
    return (

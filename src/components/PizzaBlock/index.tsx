@@ -3,7 +3,18 @@ import { useDispatch } from 'react-redux';
 import { addToCart } from '../../redux/slices/cartSlice';
 import ratingIMG from '../../assets/img/rating2.svg';
 
-const PizzaBlock = ({ title, imageUrl, types, sizes, price, id, rating }) => {
+type PizzaBlockProps = {
+   id: string;
+   imageUrl: string;
+   title: string;
+   description: string;
+   price: string;
+   rating: string;
+   types: number[];
+   sizes: number[];
+};
+
+const PizzaBlock: React.FC<PizzaBlockProps> = ({ title, imageUrl, types, sizes, price, id, rating }) => {
    const [activeSize, setActiveSize] = React.useState(0);
    const [activeType, setActiveType] = React.useState(0);
    const typeNames = ['тонкое', 'традиционное'];
