@@ -13,8 +13,11 @@ declare module '*.gif' {
    export default src;
 }
 declare module '*.scss' {
-   const src: string;
-   export default src;
+   interface IClassNames {
+      [className: string]: string;
+   }
+   const classNames: IClassNames;
+   export = classNames;
 }
 
 declare module '*.svg' {

@@ -34,7 +34,7 @@ const Home: React.FC = () => {
       dispatch(setCategoryId(id));
    };
 
-   const sortItems = (obj) => {
+   const sortItems = (obj: any) => {
       dispatch(setSelectedSort(obj));
    };
 
@@ -88,7 +88,7 @@ const Home: React.FC = () => {
    }, [categoryId, selectedSort, currentPage]);
 
    const skeleton = [...new Array(8)].map((_, i) => <Skeleton key={i} />);
-   const pizzas = items.map((pizza) => (
+   const pizzas = items.map((pizza: any) => (
       <Link key={pizza.id} to={`/pizza/${pizza.id}`}>
          <PizzaBlock {...pizza} />
       </Link>
@@ -103,7 +103,9 @@ const Home: React.FC = () => {
             </div>
             <h2 className='content__title'>Все пиццы</h2>
             <div className='content__items'>{status === 'error' ? <Error /> : status === 'loading' ? skeleton : pizzas}</div>
-            {status === 'success' && <Pagination currentPage={currentPage} clickPagination={(page) => clickPagination(page)} />}
+            {status === 'success' && (
+               <Pagination currentPage={currentPage} clickPagination={(page: any) => clickPagination(page)} />
+            )}
          </div>
       </div>
    );

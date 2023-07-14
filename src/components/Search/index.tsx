@@ -11,16 +11,16 @@ const Search: React.FC = () => {
    const [value, setValue] = React.useState<string>('');
 
    const searchValue = useSelector((state) => state.filter);
-   const inputRef = React.useRef<HTMLInputElement>();
+   const inputRef = React.useRef<HTMLInputElement>(null);
 
    const updateSearchValue = React.useCallback(
-      debounce((str) => {
+      debounce((str: any) => {
          dispatch(setSearchValue(str));
       }, 400),
       []
    );
 
-   const onChangeInput = (e) => {
+   const onChangeInput = (e: any) => {
       const inputValue = e.target.value;
       setValue(inputValue);
       updateSearchValue(inputValue);

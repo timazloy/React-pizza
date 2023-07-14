@@ -39,9 +39,12 @@ export const sortSettingItems: sortItems[] = [
    }
 ];
 
-const Sort: React.FC = ({ selectedSort, sortItems }) => {
-   console.log(selectedSort);
-   console.log(sortItems);
+type SortProps = {
+   selectedSort: any;
+   sortItems: any;
+};
+
+const Sort: React.FC<SortProps> = ({ selectedSort, sortItems }) => {
    const [openSort, setOpenSort] = React.useState(false);
    const sortRef = React.useRef<HTMLDivElement>(null);
 
