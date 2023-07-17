@@ -44,13 +44,19 @@ type SortProps = {
    sortItems: any;
 };
 
+type PopupClick = MouseEvent & {
+   path: Node[];
+};
+
 const Sort: React.FC<SortProps> = ({ selectedSort, sortItems }) => {
    const [openSort, setOpenSort] = React.useState(false);
    const sortRef = React.useRef<HTMLDivElement>(null);
 
    React.useEffect(() => {
-      const handleClickOutside = (event: any) => {
-         if (!event.composedPath().includes(sortRef.current)) {
+      const handleClickOutside = (event: MouseEvent) => {
+         const _event = event as PopupClick;
+
+         if (sortRef.current && !_event.composedPath().includes(sortRef.current)) {
             setOpenSort(false);
          }
       };
