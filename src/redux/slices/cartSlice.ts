@@ -1,6 +1,23 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { RootState } from '../store';
 
-const initialState = {
+type CartItem = {
+   id: string;
+   title: string;
+   img: string;
+   price: number;
+   type: string;
+   size: number;
+   count: number;
+};
+
+interface CartSliceState {
+   totalPrice: number;
+   totalCount: number;
+   cartItems: CartItem[];
+}
+
+const initialState: CartSliceState = {
    totalPrice: 0,
    totalCount: 0,
    cartItems: []
@@ -12,8 +29,8 @@ const cartSlice = createSlice({
    reducers: {
       clearCart(state, action) {
          state.cartItems = [];
-         cartSlice.caseReducers.calcTotalCount(state);
-         cartSlice.caseReducers.calcTotalPrice(state);
+         cartSlice.caseReducers.calcTotalCount(state, action);
+         cartSlice.caseReducers.calcTotalPrice(state, action);
       },
       onDeleteItem(state, action) {
          const { id, type, size } = action.payload;
@@ -22,8 +39,8 @@ const cartSlice = createSlice({
             return item.id !== id || item.type !== type || item.size !== size;
          });
 
-         cartSlice.caseReducers.calcTotalCount(state);
-         cartSlice.caseReducers.calcTotalPrice(state);
+         cartSlice.caseReducers.calcTotalCount(state, action);
+         cartSlice.caseReducers.calcTotalPrice(state, action);
       },
 
       calcTotalPrice(state, action) {
@@ -41,16 +58,16 @@ const cartSlice = createSlice({
          state.cartItems.find((obj) => {
             if (obj.id === id && obj.size === size && obj.type === type) obj.count--;
          });
-         cartSlice.caseReducers.calcTotalCount(state);
-         cartSlice.caseReducers.calcTotalPrice(state);
+         cartSlice.caseReducers.calcTotalCount(state, action);
+         cartSlice.caseReducers.calcTotalPrice(state, action);
       },
       onPlusCount(state, action) {
          const { id, type, size } = action.payload;
          state.cartItems.filter((obj) => {
             if (obj.id === id && obj.size === size && obj.type === type) obj.count++;
          });
-         cartSlice.caseReducers.calcTotalCount(state);
-         cartSlice.caseReducers.calcTotalPrice(state);
+         cartSlice.caseReducers.calcTotalCount(state, action);
+         cartSlice.caseReducers.calcTotalPrice(state, action);
       },
       addToCart(state, action) {
          const findItem = state.cartItems.find((obj) => {
@@ -63,13 +80,13 @@ const cartSlice = createSlice({
             state.cartItems.push(action.payload);
          }
 
-         cartSlice.caseReducers.calcTotalCount(state);
-         cartSlice.caseReducers.calcTotalPrice(state);
+         cartSlice.caseReducers.calcTotalCount(state, action);
+         cartSlice.caseReducers.calcTotalPrice(state, action);
       }
    }
 });
 
-export const selectedCart = (state) => state.cart;
+export const selectedCart = (state: RootState) => state.cart;
 
 export const { addToCart, onPlusCount, onMinusCount, onDeleteItem, clearCart } = cartSlice.actions;
 

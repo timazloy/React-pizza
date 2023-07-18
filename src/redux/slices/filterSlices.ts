@@ -1,6 +1,19 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialState = {
+type Sort = {
+   name: string;
+   sort: string;
+   direction: string;
+};
+
+interface FilterSliceState {
+   searchValue: string;
+   categoryId: number;
+   currentPagePaginate: number;
+   sort: Sort;
+}
+
+const initialState: FilterSliceState = {
    searchValue: '',
    categoryId: 0,
    currentPagePaginate: 1,
