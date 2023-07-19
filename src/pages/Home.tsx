@@ -1,7 +1,8 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { setCategoryId, setSelectedSort, setCurrentPage, setFilters } from '../redux/slices/filterSlices';
-import { fetchPizzas } from '../redux/slices/pizzasSlice';
+import { useSelector } from 'react-redux';
+import { setCategoryId, setSelectedSort, setCurrentPage, setFilters, FilterSliceState } from '../redux/slices/filterSlices';
+import { fetchPizzas, SearchPizzaParams } from '../redux/slices/pizzasSlice';
+import { useAppDispatch } from '../redux/store';
 import qs from 'qs';
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -17,7 +18,7 @@ import Error from '../components/Error/Error';
 
 const Home: React.FC = () => {
    const navigate = useNavigate();
-   const dispatch = useDispatch();
+   const dispatch = useAppDispatch();
    const isSearch = React.useRef(false);
    const isMount = React.useRef(false);
 
@@ -51,8 +52,7 @@ const Home: React.FC = () => {
    // Если был первый рендер, то проверяем URL-параметры и сохраняем в redux
    React.useEffect(() => {
       if (window.location.search) {
-         const params = qs.parse(window.location.search.substring(1));
-
+         const params = qs.parse(window.location.search.substring(1)) as unknown as SearchPizzaParams;
          const sort = sortSettingItems.find((obj) => obj.sort === params.selectedSort.sort);
          //@ts-ignore
          dispatch(setFilters({ ...params, sort }));

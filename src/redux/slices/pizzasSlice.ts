@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { Sort } from './filterSlices';
 
 type Pizza = {
    id: string;
@@ -12,7 +13,15 @@ type Pizza = {
    sizes: number[];
 };
 
-export const fetchPizzas = createAsyncThunk<Pizza[], Record<string, string>>('pizza/fetchPizzasStatus', async (params) => {
+export type SearchPizzaParams = {
+   currentPage: string;
+   category: string;
+   activeSort: Sort;
+   selectedDirection: string;
+   searchValue: string;
+};
+
+export const fetchPizzas = createAsyncThunk<Pizza[], SearchPizzaParams>('pizza/fetchPizzasStatus', async (params) => {
    const { currentPage, category, activeSort, selectedDirection, searchValue } = params;
    const { data } = await axios.get<Pizza[]>(
       `https://639f35a97aaf11ceb8954a67.mockapi.io/Themes?page=${currentPage}&limit=8${category}&sortBy=${activeSort}&order=${selectedDirection}&search=${searchValue}`
@@ -21,14 +30,20 @@ export const fetchPizzas = createAsyncThunk<Pizza[], Record<string, string>>('pi
    return data;
 });
 
+enum Status {
+   LOADING = 'loading',
+   SUCCESS = 'success',
+   ERROR = 'error'
+}
+
 interface PizzaSliceState {
    items: Pizza[];
-   status: 'loading' | 'success' | 'error';
+   status: Status;
 }
 
 const initialState: PizzaSliceState = {
    items: [],
-   status: 'loading'
+   status: Status.LOADING
 };
 
 const pizzaSlice = createSlice({
@@ -41,15 +56,15 @@ const pizzaSlice = createSlice({
    },
    extraReducers: (builder) => {
       builder.addCase(fetchPizzas.pending, (state, action) => {
-         state.status = 'loading';
+         state.status = Status.LOADING;
          state.items = [];
       });
       builder.addCase(fetchPizzas.fulfilled, (state, action) => {
          state.items = action.payload;
-         state.status = 'success';
+         state.status = Status.SUCCESS;
       });
       builder.addCase(fetchPizzas.rejected, (state, action) => {
-         state.status = 'error';
+         state.status = Status.ERROR;
          state.items = [];
       });
    }

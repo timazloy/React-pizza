@@ -1,12 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-type Sort = {
+export type Sort = {
    name: string;
    sort: string;
    direction: string;
 };
 
-interface FilterSliceState {
+export interface FilterSliceState {
    searchValue: string;
    categoryId: number;
    currentPagePaginate: number;
