@@ -2,6 +2,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { addToCart } from '../../redux/slices/cartSlice';
 import ratingIMG from '../../assets/img/rating2.svg';
+import cartItem from '../CartItem/CartItem';
 
 type PizzaBlockProps = {
    id: string;
@@ -25,17 +26,17 @@ const PizzaBlock: React.FC<PizzaBlockProps> = ({ title, imageUrl, types, sizes, 
    const dispatch = useDispatch();
 
    const addToCat = () => {
-      dispatch(
-         addToCart({
-            id,
-            title,
-            img: imageUrl,
-            price,
-            type,
-            size,
-            count: 1
-         })
-      );
+      const item: cartItem = {
+         id,
+         title,
+         img: imageUrl,
+         price,
+         type,
+         size,
+         count: 1
+      };
+
+      dispatch(addToCart(item));
    };
 
    return (

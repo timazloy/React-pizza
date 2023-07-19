@@ -1,16 +1,32 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-export const fetchPizzas = createAsyncThunk('pizza/fetchPizzasStatus', async (params) => {
+type Pizza = {
+   id: string;
+   imageUrl: string;
+   title: string;
+   description: string;
+   price: string;
+   rating: string;
+   types: number[];
+   sizes: number[];
+};
+
+export const fetchPizzas = createAsyncThunk<Pizza[], Record<string, string>>('pizza/fetchPizzasStatus', async (params) => {
    const { currentPage, category, activeSort, selectedDirection, searchValue } = params;
-   const { data } = await axios.get(
+   const { data } = await axios.get<Pizza[]>(
       `https://639f35a97aaf11ceb8954a67.mockapi.io/Themes?page=${currentPage}&limit=8${category}&sortBy=${activeSort}&order=${selectedDirection}&search=${searchValue}`
    );
 
    return data;
 });
 
-const initialState = {
+interface PizzaSliceState {
+   items: Pizza[];
+   status: 'loading' | 'success' | 'error';
+}
+
+const initialState: PizzaSliceState = {
    items: [],
    status: 'loading'
 };
@@ -19,24 +35,38 @@ const pizzaSlice = createSlice({
    name: 'pizza',
    initialState,
    reducers: {
-      setItems(state, action) {
+      setItems(state, action: PayloadAction<Pizza>) {
          state.items = action.payload;
       }
    },
-   extraReducers: {
-      [fetchPizzas.pending]: (state) => {
+   extraReducers: (builder) => {
+      builder.addCase(fetchPizzas.pending, (state, action) => {
          state.status = 'loading';
          state.items = [];
-      },
-      [fetchPizzas.fulfilled]: (state, action) => {
+      });
+      builder.addCase(fetchPizzas.fulfilled, (state, action) => {
          state.items = action.payload;
          state.status = 'success';
-      },
-      [fetchPizzas.rejected]: (state) => {
+      });
+      builder.addCase(fetchPizzas.rejected, (state, action) => {
          state.status = 'error';
          state.items = [];
-      }
+      });
    }
+   // extraReducers: {
+   //    [fetchPizzas.pending]: (state) => {
+   //       state.status = 'loading';
+   //       state.items = [];
+   //    },
+   //    [fetchPizzas.fulfilled]: (state, action) => {
+   //       state.items = action.payload;
+   //       state.status = 'success';
+   //    },
+   //    [fetchPizzas.rejected]: (state) => {
+   //       state.status = 'error';
+   //       state.items = [];
+   //    }
+   // }
 });
 
 export const { setItems } = pizzaSlice.actions;
