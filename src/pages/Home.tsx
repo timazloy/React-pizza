@@ -49,43 +49,51 @@ const Home: React.FC = () => {
       window.scrollTo(0, 0);
    };
 
-   // Если был первый рендер, то проверяем URL-параметры и сохраняем в redux
-   React.useEffect(() => {
-      if (window.location.search) {
-         const params = qs.parse(window.location.search.substring(1)) as unknown as SearchPizzaParams;
-         const sort = sortSettingItems.find((obj) => obj.sort === params.selectedSort.sort);
-         //@ts-ignore
-         dispatch(setFilters({ ...params, sort }));
-
-         isSearch.current = true;
-      }
-   }, []);
+   // Парсим параметры при первом рендере
+   // React.useEffect(() => {
+   //    if (window.location.search) {
+   //       const params = qs.parse(window.location.search.substring(1)) as unknown as SearchPizzaParams;
+   //       const sort = sortSettingItems.find((obj) => obj.sort === params.selectedSort.sort);
+   //
+   //       dispatch(
+   //          setFilters({
+   //             searchValue: params.searchValue,
+   //             categoryId: Number(params.category),
+   //             currentPage: Number(params.currentPage),
+   //             sort: sort || sortSettingItems[0]
+   //          })
+   //       );
+   //
+   //       isSearch.current = true;
+   //    }
+   // }, []);
 
    // Если был первый рендер, то запрашиваем пиццы
    React.useEffect(() => {
       window.scrollTo(0, 0);
 
-      if (!isSearch.current) {
-         getPizzas();
-      }
+      // if (!isSearch.current) {
+      //    getPizzas();
+      // }
+      getPizzas();
 
       isSearch.current = false;
    }, [categoryId, selectedSort, searchValue, currentPage]);
 
-   // Ели изменили параметры и был первый рендер
-   React.useEffect(() => {
-      if (isMount.current) {
-         const queryString = qs.stringify({
-            sortProperty: currentPage,
-            categoryId,
-            selectedSort
-         });
-
-         navigate(`?${queryString}`);
-      }
-
-      isMount.current = true;
-   }, [categoryId, selectedSort, currentPage]);
+   // // Ели изменили параметры и был первый рендер
+   // React.useEffect(() => {
+   //    if (isMount.current) {
+   //       const queryString = qs.stringify({
+   //          sortProperty: currentPage,
+   //          categoryId,
+   //          selectedSort
+   //       });
+   //
+   //       navigate(`?${queryString}`);
+   //    }
+   //
+   //    isMount.current = true;
+   // }, [categoryId, selectedSort, currentPage]);
 
    const skeleton = [...new Array(8)].map((_, i) => <Skeleton key={i} />);
    const pizzas = items.map((pizza: any) => (
