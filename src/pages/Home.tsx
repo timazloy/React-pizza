@@ -5,6 +5,7 @@ import { fetchPizzas, SearchPizzaParams } from '../redux/slices/pizzasSlice';
 import { useAppDispatch } from '../redux/store';
 import qs from 'qs';
 import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 import '../scss/app.scss';
 import '../App.css';
@@ -18,7 +19,7 @@ import Error from '../components/Error/Error';
 
 const Home: React.FC = () => {
    const navigate = useNavigate();
-   const dispatch = useAppDispatch();
+   const dispatch = useDispatch();
    const isSearch = React.useRef(false);
    const isMount = React.useRef(false);
 
