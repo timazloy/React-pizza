@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { setCategoryId, setSelectedSort, setCurrentPage, setFilters, FilterSliceState } from '../redux/slices/filterSlices';
 import { fetchPizzas, SearchPizzaParams } from '../redux/slices/pizzasSlice';
-import { useAppDispatch } from '../redux/store';
+// import { useAppDispatch } from '../redux/store';
 import qs from 'qs';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
@@ -73,10 +73,9 @@ const Home: React.FC = () => {
    React.useEffect(() => {
       window.scrollTo(0, 0);
 
-      // if (!isSearch.current) {
-      //    getPizzas();
-      // }
-      getPizzas();
+      if (!isSearch.current) {
+         getPizzas();
+      }
 
       isSearch.current = false;
    }, [categoryId, selectedSort, searchValue, currentPage]);

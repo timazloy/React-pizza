@@ -50,7 +50,7 @@ const pizzaSlice = createSlice({
    name: 'pizza',
    initialState,
    reducers: {
-      setItems(state, action: PayloadAction<Pizza>) {
+      setItems(state, action: PayloadAction<Pizza[]>) {
          state.items = action.payload;
       }
    },

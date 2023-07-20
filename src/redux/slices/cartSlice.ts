@@ -5,7 +5,7 @@ export type CartItem = {
    id: string;
    title: string;
    img: string;
-   price: number;
+   price: string;
    type: string;
    size: number;
    count: number;
@@ -27,7 +27,7 @@ const cartSlice = createSlice({
    name: 'cart',
    initialState,
    reducers: {
-      clearCart(state, action: PayloadAction<CartItem>) {
+      clearCart(state, action: PayloadAction<undefined>) {
          state.cartItems = [];
          cartSlice.caseReducers.calcTotalCount(state, action);
          cartSlice.caseReducers.calcTotalPrice(state, action);
