@@ -4,13 +4,14 @@ import close from '../../assets/img/close.svg';
 // @ts-ignore
 import debounce from 'lodash.debounce';
 import { useSelector, useDispatch } from 'react-redux';
-import { setSearchValue } from '../../redux/slices/filterSlices';
+import { FilterSliceState, setSearchValue } from '../../redux/slices/filterSlices';
+import { RootState } from '../../redux/store';
 
 const Search: React.FC = () => {
    const dispatch = useDispatch();
    const [value, setValue] = React.useState<string>('');
 
-   const searchValue = useSelector((state) => state.filter);
+   const searchValue = useSelector((state: RootState) => state.filter);
    const inputRef = React.useRef<HTMLInputElement>(null);
 
    const updateSearchValue = React.useCallback(

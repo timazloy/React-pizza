@@ -16,6 +16,7 @@ import Skeleton from '../components/PizzaBlock/Skeleton';
 import PizzaBlock from '../components/PizzaBlock';
 import Pagination from '../components/Pagination';
 import Error from '../components/Error/Error';
+import { RootState } from '../redux/store';
 
 const Home: React.FC = () => {
    const navigate = useNavigate();
@@ -23,8 +24,8 @@ const Home: React.FC = () => {
    const isSearch = React.useRef(false);
    const isMount = React.useRef(false);
 
-   const { categoryId, sort, currentPagePaginate, searchValue } = useSelector((state) => state.filter);
-   const { items, status } = useSelector((state) => state.pizza);
+   const { categoryId, sort, currentPagePaginate, searchValue } = useSelector((state: RootState) => state.filter);
+   const { items, status } = useSelector((state: RootState) => state.pizza);
    const selectedSort = sort;
    const activeSort = sort.sort;
    const selectedDirection = sort.direction;
