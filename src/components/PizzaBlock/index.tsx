@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { addToCart } from '../../redux/slices/cartSlice';
 import ratingIMG from '../../assets/img/rating2.svg';
 import { CartItem } from '../../redux/slices/cartSlice';
+import { Link, useNavigate } from 'react-router-dom';
 
 type PizzaBlockProps = {
    id: string;
@@ -41,12 +42,14 @@ const PizzaBlock: React.FC<PizzaBlockProps> = ({ title, imageUrl, types, sizes, 
 
    return (
       <div className='pizza-block'>
-         <img className='pizza-block__image' src={imageUrl} alt='Pizza' />
-         <h4 className='pizza-block__title'>{title}</h4>
-         <div className='pizza-block__rating'>
-            <img src={ratingIMG} alt='rating' />
-            <span className='pizza-block__rating-text'>{rating}</span>
-         </div>
+         <Link to={`/pizza/${id}`}>
+            <img className='pizza-block__image' src={imageUrl} alt='Pizza' />
+            <h4 className='pizza-block__title'>{title}</h4>
+            <div className='pizza-block__rating'>
+               <img src={ratingIMG} alt='rating' />
+               <span className='pizza-block__rating-text'>{rating}</span>
+            </div>
+         </Link>
 
          <div className='pizza-block__selector'>
             <ul>

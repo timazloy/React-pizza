@@ -33,9 +33,9 @@ const Home: React.FC = () => {
 
    const category = categoryId > 0 ? `&category=${categoryId}` : '';
 
-   const clickCategory = (id: number) => {
+   const clickCategory = React.useCallback((id: number) => {
       dispatch(setCategoryId(id));
-   };
+   }, []);
 
    const sortItems = (obj: any) => {
       dispatch(setSelectedSort(obj));
@@ -97,11 +97,7 @@ const Home: React.FC = () => {
    // }, [categoryId, selectedSort, currentPage]);
 
    const skeleton = [...new Array(8)].map((_, i) => <Skeleton key={i} />);
-   const pizzas = items.map((pizza: any) => (
-      <Link key={pizza.id} to={`/pizza/${pizza.id}`}>
-         <PizzaBlock {...pizza} />
-      </Link>
-   ));
+   const pizzas = items.map((pizza: any) => <PizzaBlock key={pizza.id} {...pizza} />);
 
    return (
       <div className='content'>

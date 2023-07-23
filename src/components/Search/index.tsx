@@ -4,7 +4,7 @@ import close from '../../assets/img/close.svg';
 // @ts-ignore
 import debounce from 'lodash.debounce';
 import { useSelector, useDispatch } from 'react-redux';
-import { FilterSliceState, setSearchValue } from '../../redux/slices/filterSlices';
+import { setSearchValue } from '../../redux/slices/filterSlices';
 import { RootState } from '../../redux/store';
 
 const Search: React.FC = () => {
