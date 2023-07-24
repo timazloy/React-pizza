@@ -19,10 +19,13 @@ type PizzaBlockProps = {
 const PizzaBlock: React.FC<PizzaBlockProps> = ({ title, imageUrl, types, sizes, price, id, rating }) => {
    const [activeSize, setActiveSize] = React.useState(0);
    const [activeType, setActiveType] = React.useState(0);
-   const typeNames = ['тонкое', 'традиционное'];
 
-   const type = typeNames[activeType];
-   const size = sizes[activeSize];
+   const keysTypes = Object.keys(types);
+   const keysSizes = Object.keys(sizes);
+
+   const type = keysTypes[activeType];
+   const size = Number(keysSizes[activeSize]);
+   const totalCost = Number(types[Number(type)]) + Number(sizes[size]);
 
    const dispatch = useDispatch();
 
@@ -31,7 +34,7 @@ const PizzaBlock: React.FC<PizzaBlockProps> = ({ title, imageUrl, types, sizes, 
          id,
          title,
          img: imageUrl,
-         price,
+         price: totalCost,
          type,
          size,
          count: 1
@@ -53,22 +56,22 @@ const PizzaBlock: React.FC<PizzaBlockProps> = ({ title, imageUrl, types, sizes, 
 
          <div className='pizza-block__selector'>
             <ul>
-               {types.map((type, i) => (
+               {keysTypes.map((type, i) => (
                   <li onClick={() => setActiveType(i)} className={activeType === i ? 'active' : ''} key={i}>
-                     {typeNames[i]}
+                     {keysTypes[i]}
                   </li>
                ))}
             </ul>
             <ul>
-               {sizes.map((size, i) => (
+               {keysSizes.map((size, i) => (
                   <li onClick={() => setActiveSize(i)} className={activeSize === i ? 'active' : ''} key={i}>
-                     {size} см.
+                     {keysSizes[i]} см.
                   </li>
                ))}
             </ul>
          </div>
          <div className='pizza-block__bottom'>
-            <div className='pizza-block__price'>от {price} ₽</div>
+            <div className='pizza-block__price'>Цена {totalCost} ₽</div>
             <button onClick={addToCat} type='button' className='button button--outline button--add'>
                <svg width='12' height='12' viewBox='0 0 12 12' fill='none' xmlns='http://www.w3.org/2000/svg'>
                   <path

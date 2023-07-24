@@ -3,6 +3,8 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import styles from './Pizza.module.scss';
 import rating from '../../assets/img/rating2.svg';
+import { useState, CSSProperties } from 'react';
+import { ThreeDots } from 'react-loader-spinner';
 
 const Pizza: React.FC = () => {
    const [pizza, setPizza] = React.useState<{
@@ -27,8 +29,20 @@ const Pizza: React.FC = () => {
       fetchData();
    }, []);
 
+   const override: CSSProperties = {
+      display: 'block',
+      margin: '0 auto',
+      borderColor: '#fe5f1e'
+   };
+
    if (!pizza) {
-      return 'Loading';
+      return (
+         // @ts-ignore
+         <div className={styles.loading}>
+            {/*@ts-ignore*/}
+            <ThreeDots height='80' width='80' radius='9' color='green' ariaLabel='loading' wrapperStyle wrapperClass />
+         </div>
+      );
    }
 
    return (
@@ -42,7 +56,17 @@ const Pizza: React.FC = () => {
          </div>
          <div className={styles.root__wrapper}>
             <h1>{pizza.title}</h1>
-            <p>{pizza.description}</p>
+            <p className={styles.root__description}>{pizza.description}</p>
+            <ul className={styles.root__info}>
+               <li>
+                  Мы особенно гордимся тем, что в нашей пиццерии используются только свежие и качественные ингредиенты. Наша
+                  команда тщательно подбирает овощи и фрукты, чтобы каждый кусочек пиццы радовал вас свежим и сочным вкусом.
+               </li>
+               <li>
+                  Нам очень важно качество мяса, которое мы используем в наших рецептах. Мы работаем только с проверенными
+                  поставщиками, чтобы гарантировать идеально приготовленные мясные начинки с насыщенным вкусом.
+               </li>
+            </ul>
             <h1>{pizza.price}</h1>
          </div>
       </div>
