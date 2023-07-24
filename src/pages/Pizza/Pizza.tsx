@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import styles from './Pizza.module.scss';
 import rating from '../../assets/img/rating2.svg';
-import { useState, CSSProperties } from 'react';
+import { CSSProperties } from 'react';
 import { ThreeDots } from 'react-loader-spinner';
 
 const Pizza: React.FC = () => {
@@ -29,6 +29,8 @@ const Pizza: React.FC = () => {
       fetchData();
    }, []);
 
+   console.log(pizza);
+
    const override: CSSProperties = {
       display: 'block',
       margin: '0 auto',
@@ -37,10 +39,9 @@ const Pizza: React.FC = () => {
 
    if (!pizza) {
       return (
-         // @ts-ignore
          <div className={styles.loading}>
             {/*@ts-ignore*/}
-            <ThreeDots height='80' width='80' radius='9' color='green' ariaLabel='loading' wrapperStyle wrapperClass />
+            <ThreeDots height='80' width='80' radius='9' color='#fe5f1e' ariaLabel='loading' wrapperStyle wrapperClass />
          </div>
       );
    }
@@ -68,6 +69,22 @@ const Pizza: React.FC = () => {
                </li>
             </ul>
             <h1>{pizza.price}</h1>
+            {/*<div className='pizza-block__selector'>*/}
+            {/*   <ul>*/}
+            {/*      {keysTypes.map((type, i) => (*/}
+            {/*         <li onClick={() => setActiveType(i)} className={activeType === i ? 'active' : ''} key={i}>*/}
+            {/*            {keysTypes[i]}*/}
+            {/*         </li>*/}
+            {/*      ))}*/}
+            {/*   </ul>*/}
+            {/*   <ul>*/}
+            {/*      {keysSizes.map((size, i) => (*/}
+            {/*         <li onClick={() => setActiveSize(i)} className={activeSize === i ? 'active' : ''} key={i}>*/}
+            {/*            {keysSizes[i]} см.*/}
+            {/*         </li>*/}
+            {/*      ))}*/}
+            {/*   </ul>*/}
+            {/*</div>*/}
          </div>
       </div>
    );

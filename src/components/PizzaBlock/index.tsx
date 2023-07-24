@@ -25,7 +25,8 @@ const PizzaBlock: React.FC<PizzaBlockProps> = ({ title, imageUrl, types, sizes, 
 
    const type = keysTypes[activeType];
    const size = Number(keysSizes[activeSize]);
-   const totalCost = Number(types[Number(type)]) + Number(sizes[size]);
+   // @ts-ignore
+   const totalCost = Number(types[type]) + Number(sizes[size]);
 
    const dispatch = useDispatch();
 
