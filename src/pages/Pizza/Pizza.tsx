@@ -1,10 +1,10 @@
 import React from 'react';
+import Loading from '../../components/Loading/Loading';
+
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import styles from './Pizza.module.scss';
 import rating from '../../assets/img/rating2.svg';
-import { CSSProperties } from 'react';
-import { ThreeDots } from 'react-loader-spinner';
 
 const Pizza: React.FC = () => {
    const [pizza, setPizza] = React.useState<{
@@ -13,6 +13,8 @@ const Pizza: React.FC = () => {
       description: string;
       price: string;
       rating: string;
+      types: any;
+      sizes: any;
    }>();
    const { id } = useParams();
 
@@ -29,21 +31,8 @@ const Pizza: React.FC = () => {
       fetchData();
    }, []);
 
-   console.log(pizza);
-
-   const override: CSSProperties = {
-      display: 'block',
-      margin: '0 auto',
-      borderColor: '#fe5f1e'
-   };
-
    if (!pizza) {
-      return (
-         <div className={styles.loading}>
-            {/*@ts-ignore*/}
-            <ThreeDots height='80' width='80' radius='9' color='#fe5f1e' ariaLabel='loading' wrapperStyle wrapperClass />
-         </div>
-      );
+      return <Loading />;
    }
 
    return (
@@ -68,23 +57,21 @@ const Pizza: React.FC = () => {
                   поставщиками, чтобы гарантировать идеально приготовленные мясные начинки с насыщенным вкусом.
                </li>
             </ul>
-            <h1>{pizza.price}</h1>
-            {/*<div className='pizza-block__selector'>*/}
-            {/*   <ul>*/}
-            {/*      {keysTypes.map((type, i) => (*/}
-            {/*         <li onClick={() => setActiveType(i)} className={activeType === i ? 'active' : ''} key={i}>*/}
-            {/*            {keysTypes[i]}*/}
-            {/*         </li>*/}
-            {/*      ))}*/}
-            {/*   </ul>*/}
-            {/*   <ul>*/}
-            {/*      {keysSizes.map((size, i) => (*/}
-            {/*         <li onClick={() => setActiveSize(i)} className={activeSize === i ? 'active' : ''} key={i}>*/}
-            {/*            {keysSizes[i]} см.*/}
-            {/*         </li>*/}
-            {/*      ))}*/}
-            {/*   </ul>*/}
-            {/*</div>*/}
+            <div>
+               <div>
+                  <p>Тип пиццы:</p>
+                  {Object.keys(pizza.types).map((type, i) => (
+                     <button key={i}>{type}</button>
+                  ))}
+               </div>
+               <div>
+                  <p>Размер:</p>
+                  {Object.keys(pizza.sizes).map((type, i) => (
+                     <button key={i}>{type}</button>
+                  ))}
+               </div>
+               <span>{pizza.price}</span>
+            </div>
          </div>
       </div>
    );
