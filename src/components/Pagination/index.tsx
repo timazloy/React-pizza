@@ -6,7 +6,7 @@ type PaginationProps = {
    clickPagination: (page: number) => void;
 };
 
-const Pagination: React.FC<PaginationProps> = ({ currentPage, clickPagination }) => {
+export const Pagination: React.FC<PaginationProps> = ({ currentPage, clickPagination }) => {
    const pages = [1, 2];
 
    return (
@@ -24,5 +24,3 @@ const Pagination: React.FC<PaginationProps> = ({ currentPage, clickPagination })
       </div>
    );
 };
-
-export default Pagination;

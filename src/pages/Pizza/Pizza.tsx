@@ -1,5 +1,5 @@
 import React from 'react';
-import Loading from '../../components/Loading/Loading';
+import { Loading } from '../../components/Loading/Loading';
 
 import { useParams } from 'react-router-dom';
 import axios from 'axios';

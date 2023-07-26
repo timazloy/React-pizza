@@ -2,10 +2,10 @@ import React from 'react';
 import LogoSvg from '../assets/img/pizza-logo.svg';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import Search from './Search';
+import { Search } from './Search';
 import { selectedCart } from '../redux/slices/cartSlice';
 
-const Header: React.FC = () => {
+export const Header: React.FC = () => {
    const { totalPrice, totalCount } = useSelector(selectedCart);
    return (
       <div className='header'>
@@ -52,5 +52,3 @@ const Header: React.FC = () => {
       </div>
    );
 };
-
-export default Header;

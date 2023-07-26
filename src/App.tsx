@@ -5,8 +5,7 @@ import './App.css';
 import './scss/app.scss';
 
 import Home from './pages/Home';
-import Header from './components/Header';
-import Loading from './components/Loading/Loading';
+import { Loading, Header } from './components/';
 
 const Cart = React.lazy(() => import(/* webpackChunkName: "Cart"*/ './pages/Cart/Cart'));
 const NotFound = React.lazy(() => import(/* webpackChunkName: "NotFound"*/ './pages/NotFound'));
@@ -18,33 +17,14 @@ function App() {
          <Header />
          <div className='content'>
             <div className='container'>
-               <Routes>
-                  <Route path='/' element={<Home />} />
-                  <Route
-                     path='*'
-                     element={
-                        <React.Suspense fallback={<Loading />}>
-                           <NotFound />
-                        </React.Suspense>
-                     }
-                  />
-                  <Route
-                     path='/cart'
-                     element={
-                        <React.Suspense fallback={<Loading />}>
-                           <Cart />
-                        </React.Suspense>
-                     }
-                  />
-                  <Route
-                     path='/pizza/:id'
-                     element={
-                        <React.Suspense fallback={<Loading />}>
-                           <Pizza />
-                        </React.Suspense>
-                     }
-                  />
-               </Routes>
+               <React.Suspense fallback={<Loading />}>
+                  <Routes>
+                     <Route path='/' element={<Home />} />
+                     <Route path='*' element={<NotFound />} />
+                     <Route path='/cart' element={<Cart />} />
+                     <Route path='/pizza/:id' element={<Pizza />} />
+                  </Routes>
+               </React.Suspense>
             </div>
          </div>
       </div>

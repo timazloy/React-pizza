@@ -10,12 +10,7 @@ import { useDispatch } from 'react-redux';
 import '../scss/app.scss';
 import '../App.css';
 
-import Categories from '../components/Categories';
-import Sort, { sortSettingItems } from '../components/Sort';
-import Skeleton from '../components/PizzaBlock/Skeleton';
-import PizzaBlock from '../components/PizzaBlock';
-import Pagination from '../components/Pagination';
-import Error from '../components/Error/Error';
+import { Categories, Sort, Skeleton, PizzaBlock, Pagination, Error } from '../components/';
 import { RootState } from '../redux/store';
 
 const Home: React.FC = () => {

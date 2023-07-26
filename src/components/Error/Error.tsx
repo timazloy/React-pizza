@@ -2,7 +2,7 @@ import React from 'react';
 import ErrorCasino from '../../assets/img/error-casino.gif';
 import styles from './Error.module.scss';
 
-const Error: React.FC = () => {
+export const Error: React.FC = () => {
    return (
       <div className={styles.root}>
          <h1 className={styles.root__title}>Извините, кажется что-то сломалось...</h1>
@@ -11,5 +11,3 @@ const Error: React.FC = () => {
       </div>
    );
 };
-
-export default Error;

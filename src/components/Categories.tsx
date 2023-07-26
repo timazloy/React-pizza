@@ -6,7 +6,7 @@ type CategoriesProps = {
    clickCategory: (i: number) => void;
 };
 
-const Categories: React.FC<CategoriesProps> = React.memo(({ categoryId, clickCategory }) => {
+export const Categories: React.FC<CategoriesProps> = React.memo(({ categoryId, clickCategory }) => {
    const categories = ['Все', 'Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые'];
 
    useWhyDidYouUpdate('Categories', { categoryId, clickCategory });
@@ -25,5 +25,3 @@ const Categories: React.FC<CategoriesProps> = React.memo(({ categoryId, clickCat
       </div>
    );
 });
-
-export default Categories;

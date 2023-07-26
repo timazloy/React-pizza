@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './CartEmpty.module.scss';
 import NotFoundGif from '../../assets/img/travolta.gif';
 
-const CartEmpty: React.FC = () => {
+export const CartEmpty: React.FC = () => {
    return (
       <div className={styles.root}>
          <div className={styles.root__wrapper}>
@@ -13,5 +13,3 @@ const CartEmpty: React.FC = () => {
       </div>
    );
 };
-
-export default CartEmpty;

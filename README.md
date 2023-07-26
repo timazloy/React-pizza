@@ -10,15 +10,15 @@
 - TypeScript
 - Redux Toolkit
 - React Router v6
-- Axios + Fetch
 - React Hooks
-- Prettier
-- ESLint
+- Axios
 - CSS-Modules / SCSS
 - React Content Loader
 - Lodash.Debounce
-- Code Splitting, React Loadable, useWhyDidYouUpdate
+- Code Splitting
 - React Skeleton
+- Prettier
+- ESLint
 
 ### Функционал:
 
