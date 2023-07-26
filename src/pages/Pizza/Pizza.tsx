@@ -1,10 +1,12 @@
 import React from 'react';
 import { Loading } from '../../components/Loading/Loading';
+import { Link } from 'react-router-dom';
 
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import styles from './Pizza.module.scss';
 import rating from '../../assets/img/rating2.svg';
+import backImg from '../../assets/img/back.svg';
 
 const Pizza: React.FC = () => {
    const [pizza, setPizza] = React.useState<{
@@ -37,6 +39,9 @@ const Pizza: React.FC = () => {
 
    return (
       <div className={styles.root}>
+         <Link to='/' className={styles.root__back}>
+            <img src={backImg} alt='back' />
+         </Link>
          <div className={styles.root__images}>
             <img src={pizza.imageUrl} alt='pizza' />
             <div className={styles.root__rating}>

@@ -2,6 +2,25 @@
   display: flex;
   justify-content: space-between;
   padding: 0 50px;
+  position: relative;
+
+  &__back {
+    height: fit-content;
+    position: absolute;
+    top: 0;
+    z-index: 9;
+    transform: rotate(180deg);
+    left: 0;
+    border: 1px solid #fe5f1e;
+    padding: 14px;
+    border-radius: 50%;
+    display: flex;
+    transition: .2s ease-in-out;
+
+    &:hover {
+      background: #ffdf8c;
+    }
+  }
 
   &__wrapper {
     max-width: 600px;
@@ -15,7 +34,7 @@
   &__rating {
     width: 80px;
     position: absolute;
-    left: 0;
+    right: 0;
     top: 0;
   }
 
