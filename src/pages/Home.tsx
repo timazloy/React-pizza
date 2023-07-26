@@ -7,6 +7,8 @@ import qs from 'qs';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
+import { sortSettingItems } from '../components/Sort';
+
 import '../scss/app.scss';
 import '../App.css';
 
@@ -47,23 +49,23 @@ const Home: React.FC = () => {
    };
 
    // Парсим параметры при первом рендере
-   // React.useEffect(() => {
-   //    if (window.location.search) {
-   //       const params = qs.parse(window.location.search.substring(1)) as unknown as SearchPizzaParams;
-   //       const sort = sortSettingItems.find((obj) => obj.sort === params.selectedSort.sort);
-   //
-   //       dispatch(
-   //          setFilters({
-   //             searchValue: params.searchValue,
-   //             categoryId: Number(params.category),
-   //             currentPage: Number(params.currentPage),
-   //             sort: sort || sortSettingItems[0]
-   //          })
-   //       );
-   //
-   //       isSearch.current = true;
-   //    }
-   // }, []);
+   React.useEffect(() => {
+      if (window.location.search) {
+         const params = qs.parse(window.location.search.substring(1)) as unknown as SearchPizzaParams;
+         const sort = sortSettingItems.find((obj) => obj.sort === params.activeSort.sort);
+
+         dispatch(
+            setFilters({
+               searchValue: params.searchValue,
+               categoryId: Number(params.category),
+               currentPage: Number(params.currentPage),
+               sort: sort || sortSettingItems[0]
+            })
+         );
+
+         isSearch.current = true;
+      }
+   }, []);
 
    // Если был первый рендер, то запрашиваем пиццы
    React.useEffect(() => {
@@ -77,19 +79,19 @@ const Home: React.FC = () => {
    }, [categoryId, selectedSort, searchValue, currentPage]);
 
    // // Ели изменили параметры и был первый рендер
-   // React.useEffect(() => {
-   //    if (isMount.current) {
-   //       const queryString = qs.stringify({
-   //          sortProperty: currentPage,
-   //          categoryId,
-   //          selectedSort
-   //       });
-   //
-   //       navigate(`?${queryString}`);
-   //    }
-   //
-   //    isMount.current = true;
-   // }, [categoryId, selectedSort, currentPage]);
+   React.useEffect(() => {
+      if (isMount.current) {
+         const queryString = qs.stringify({
+            sortProperty: currentPage,
+            categoryId,
+            selectedSort
+         });
+
+         navigate(`?${queryString}`);
+      }
+
+      isMount.current = true;
+   }, [categoryId, selectedSort, currentPage]);
 
    const skeleton = [...new Array(8)].map((_, i) => <Skeleton key={i} />);
    const pizzas = items.map((pizza: any) => <PizzaBlock key={pizza.id} {...pizza} />);
