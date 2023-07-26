@@ -1,12 +1,14 @@
 import React from 'react';
 import LogoSvg from '../assets/img/pizza-logo.svg';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Search } from './Search';
 import { selectedCart } from '../redux/slices/cartSlice';
 
 export const Header: React.FC = () => {
    const { totalPrice, totalCount } = useSelector(selectedCart);
+   const location = useLocation();
+
    return (
       <div className='header'>
          <div className='container'>
@@ -17,7 +19,7 @@ export const Header: React.FC = () => {
                   <p>самая вкусная пицца во вселенной</p>
                </div>
             </Link>
-            <Search />
+            {location.pathname === '/' && <Search />}
             <div className='header__cart'>
                <Link to='/cart' className='button button--cart'>
                   <span>{totalPrice} ₽</span>

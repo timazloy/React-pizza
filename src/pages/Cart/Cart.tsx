@@ -1,4 +1,6 @@
 import React from 'react';
+import cartImg from '../../assets/img/cart.svg';
+
 import { useSelector, useDispatch } from 'react-redux';
 import { clearCart, selectedCart } from '../../redux/slices/cartSlice';
 
