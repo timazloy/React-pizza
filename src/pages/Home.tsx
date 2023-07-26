@@ -48,22 +48,14 @@ const Home: React.FC = () => {
       window.scrollTo(0, 0);
    };
 
-   // Парсим параметры при первом рендере
+   // Если был первый рендер, то проверяем URL-параметры и сохраняем в redux
    React.useEffect(() => {
       if (window.location.search) {
-         const params = qs.parse(window.location.search.substring(1)) as unknown as SearchPizzaParams;
-         console.log(params.selectedSort.sort);
-         // @ts-ignore
+         const params = qs.parse(window.location.search.substring(1));
+         //@ts-ignore
          const sort = sortSettingItems.find((obj) => obj.sort === params.selectedSort.sort);
-
-         dispatch(
-            setFilters({
-               searchValue: params.searchValue,
-               categoryId: params.category,
-               currentPage: params.currentPage,
-               sort: sort || sortSettingItems[0]
-            })
-         );
+         //@ts-ignore
+         dispatch(setFilters({ ...params, sort }));
 
          isSearch.current = true;
       }
@@ -80,7 +72,7 @@ const Home: React.FC = () => {
       isSearch.current = false;
    }, [categoryId, selectedSort, searchValue, currentPage]);
 
-   // // Ели изменили параметры и был первый рендер
+   // Ели изменили параметры и был первый рендер
    React.useEffect(() => {
       if (isMount.current) {
          const queryString = qs.stringify({
