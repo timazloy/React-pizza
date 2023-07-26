@@ -7,7 +7,7 @@ import qs from 'qs';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
-import { sortSettingItems } from '../components/Sort';
+import { sortSettingItems } from '../components';
 
 import '../scss/app.scss';
 import '../App.css';
@@ -52,13 +52,15 @@ const Home: React.FC = () => {
    React.useEffect(() => {
       if (window.location.search) {
          const params = qs.parse(window.location.search.substring(1)) as unknown as SearchPizzaParams;
-         const sort = sortSettingItems.find((obj) => obj.sort === params.activeSort.sort);
+         console.log(params.selectedSort.sort);
+         // @ts-ignore
+         const sort = sortSettingItems.find((obj) => obj.sort === params.selectedSort.sort);
 
          dispatch(
             setFilters({
                searchValue: params.searchValue,
-               categoryId: Number(params.category),
-               currentPage: Number(params.currentPage),
+               categoryId: params.category,
+               currentPage: params.currentPage,
                sort: sort || sortSettingItems[0]
             })
          );

@@ -40,9 +40,10 @@ const filterSlice = createSlice({
       setCurrentPage(state, action: PayloadAction<number>) {
          state.currentPagePaginate = action.payload;
       },
-      setFilters(state, action: PayloadAction<{ sortProperty: string; selectedSort: Sort; categoryId: string }>) {
-         state.currentPagePaginate = Number(action.payload.sortProperty);
-         state.sort = action.payload.selectedSort;
+      setFilters(state, action: PayloadAction<{ searchValue: string; currentPage: string; sort: Sort; categoryId: string }>) {
+         state.currentPagePaginate = Number(action.payload.currentPage);
+         state.sort = action.payload.sort;
+         state.searchValue = action.payload.searchValue;
          state.categoryId = Number(action.payload.categoryId);
       }
    }
