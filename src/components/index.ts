@@ -9,3 +9,4 @@ export * from './Search';
 export * from './Categories';
 export * from './Header';
 export * from './Sort';
+export * from './CreatePizza/CreatePizzaLink';

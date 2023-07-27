@@ -10,7 +10,12 @@ import { Loading, Header } from './components/';
 const Cart = React.lazy(() => import(/* webpackChunkName: "Cart"*/ './pages/Cart/Cart'));
 const NotFound = React.lazy(() => import(/* webpackChunkName: "NotFound"*/ './pages/NotFound'));
 const Pizza = React.lazy(() => import(/* webpackChunkName: "Pizza"*/ './pages/Pizza/Pizza'));
+const DoublePizzaCreate = React.lazy(
+   () => import(/* webpackChunkName: "DoublePizzaCreate"*/ './pages/DoublePizzaCreate/DoublePizzaCreate')
+);
+const CreatePizza = React.lazy(() => import(/* webpackChunkName: "CreatePizza"*/ './pages/CreatePizza/CreatePizza'));
 
+console.log(DoublePizzaCreate);
 function App() {
    return (
       <div className='wrapper'>
@@ -23,6 +28,8 @@ function App() {
                      <Route path='*' element={<NotFound />} />
                      <Route path='/cart' element={<Cart />} />
                      <Route path='/pizza/:id' element={<Pizza />} />
+                     <Route path='/double_pizza' element={<DoublePizzaCreate />} />
+                     <Route path='/create_pizza' element={<CreatePizza />} />
                   </Routes>
                </React.Suspense>
             </div>

@@ -12,7 +12,7 @@ import { sortSettingItems } from '../components';
 import '../scss/app.scss';
 import '../App.css';
 
-import { Categories, Sort, Skeleton, PizzaBlock, Pagination, Error } from '../components/';
+import { Categories, Sort, Skeleton, PizzaBlock, Pagination, Error, CreatePizzaLink } from '../components/';
 import { RootState } from '../redux/store';
 
 const Home: React.FC = () => {
@@ -96,6 +96,18 @@ const Home: React.FC = () => {
             <div className='content__top'>
                <Categories categoryId={categoryId} clickCategory={clickCategory} />
                <Sort selectedSort={selectedSort} sortItems={sortItems} />
+            </div>
+            <div className='content__constructors'>
+               <CreatePizzaLink
+                  link={'/double_pizza'}
+                  img={'//cdpiz1.pizzasoft.ru/rs/280x280/pizzafab/items/0/picca-iz-dvuh-raznyh-polovin-main_image-288-27213.jpg'}
+                  title={'Пицца из двух половин'}
+               />
+               <CreatePizzaLink
+                  link={'/create_pizza'}
+                  img={'//cdpiz1.pizzasoft.ru/rs/280x280/pizzafab/items/0/konstruktor-piccy-main_image-114-53765.jpg'}
+                  title={'Конструктор пиццы'}
+               />
             </div>
             <h2 className='content__title'>Все пиццы</h2>
             <div className='content__items'>{status === 'error' ? <Error /> : status === 'loading' ? skeleton : pizzas}</div>
