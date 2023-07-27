@@ -15,7 +15,6 @@ const DoublePizzaCreate = React.lazy(
 );
 const CreatePizza = React.lazy(() => import(/* webpackChunkName: "CreatePizza"*/ './pages/CreatePizza/CreatePizza'));
 
-console.log(DoublePizzaCreate);
 function App() {
    return (
       <div className='wrapper'>
