@@ -3,23 +3,24 @@ import { useSelector, useDispatch } from 'react-redux';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import { RootState } from '../../redux/store';
-import { fetchPizzas } from '../../redux/slices/pizzasSlice';
+import axios from 'axios';
+import styles from './DoublePizzaCreate.module.scss';
 
 const DoublePizzaCreate: React.FC = () => {
-   const dispatch = useDispatch();
-
-   const { items } = useSelector((state: RootState) => state.pizza);
+   const [pizzas, setPizzas] = React.useState([]);
 
    React.useEffect(() => {
-      dispatch(fetchPizzas());
+      async function fetchData() {
+         const pizzas = await axios.get('https://639f35a97aaf11ceb8954a67.mockapi.io/Themes');
+         setPizzas(pizzas.data);
+      }
+      fetchData();
    }, []);
-   console.log(items);
 
    const settings = {
-      dots: true,
       infinite: true,
-      slidesToShow: 2,
+      slidesToShow: 1,
+      // variableWidth: true,
       slidesToScroll: 1,
       vertical: true,
       verticalSwiping: true,
@@ -33,26 +34,24 @@ const DoublePizzaCreate: React.FC = () => {
    };
 
    return (
-      <div>
+      <div className={styles.test}>
          <Slider {...settings}>
-            <div>
-               <img src='//cdpiz1.pizzasoft.ru/rs/280x280/pizzafab/items/0/konstruktor-piccy-main_image-114-53765.jpg' alt='' />
-            </div>
-            <div>
-               <img src='//cdpiz1.pizzasoft.ru/rs/280x280/pizzafab/items/0/konstruktor-piccy-main_image-114-53765.jpg' alt='' />
-            </div>
-            <div>
-               <img src='//cdpiz1.pizzasoft.ru/rs/280x280/pizzafab/items/0/konstruktor-piccy-main_image-114-53765.jpg' alt='' />
-            </div>
-            <div>
-               <img src='//cdpiz1.pizzasoft.ru/rs/280x280/pizzafab/items/0/konstruktor-piccy-main_image-114-53765.jpg' alt='' />
-            </div>
-            <div>
-               <img src='//cdpiz1.pizzasoft.ru/rs/280x280/pizzafab/items/0/konstruktor-piccy-main_image-114-53765.jpg' alt='' />
-            </div>
-            <div>
-               <img src='//cdpiz1.pizzasoft.ru/rs/280x280/pizzafab/items/0/konstruktor-piccy-main_image-114-53765.jpg' alt='' />
-            </div>
+            {pizzas.map((item) => (
+               <div className={styles.pizza_wrapper} key={item.id}>
+                  <img className={styles.pizza_wrapper__img} src={item.imageUrl} alt='pizza' />
+                  <h4>{item.title}</h4>
+                  {/*<p>{item.description}</p>*/}
+               </div>
+            ))}
+         </Slider>
+         <Slider {...settings}>
+            {pizzas.map((item) => (
+               <div className={styles.pizza_wrapper} key={item.id}>
+                  <img className={styles.pizza_wrapper__img} src={item.imageUrl} alt='pizza' />
+                  <h4>{item.title}</h4>
+                  {/*<p>{item.description}</p>*/}
+               </div>
+            ))}
          </Slider>
       </div>
    );
