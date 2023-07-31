@@ -41,7 +41,7 @@ const DoublePizzaCreate: React.FC = () => {
       infinite: true,
       slidesToShow: 1.6,
       slidesToScroll: 1,
-      swipe: false,
+      // swipe: false,
       vertical: true,
       verticalSwiping: true,
       // swipeToSlide: true,
@@ -64,8 +64,12 @@ const DoublePizzaCreate: React.FC = () => {
             <Slider {...settings}>
                {pizzas.map((item) => (
                   <div className={styles.pizza_wrapper} key={item.id}>
-                     <img className={styles.pizza_wrapper__img} src={item.imageLeftPart} alt='pizza' />
-                     <h4>{item.title}</h4>
+                     <img
+                        className={`${styles.pizza_wrapper__img} ${styles.pizza_wrapper__img_left}`}
+                        src={item.imageLeftPart}
+                        alt='pizza'
+                     />
+                     <h4 className={styles.pizza_name}>{item.title}</h4>
                      {/*<p>{item.description}</p>*/}
                      {console.log(123)}
                   </div>
@@ -75,7 +79,7 @@ const DoublePizzaCreate: React.FC = () => {
                {pizzas.map((item) => (
                   <div className={styles.pizza_wrapper} key={item.id}>
                      <img className={styles.pizza_wrapper__img} src={item.imageRightPart} alt='pizza' />
-                     <h4>{item.title}</h4>
+                     <h4 className={styles.pizza_name}>{item.title}</h4>
                      {/*<p>{item.description}</p>*/}
                   </div>
                ))}
