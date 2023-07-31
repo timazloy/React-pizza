@@ -1,0 +1,17 @@
+.button_back {
+    height: fit-content;
+    position: absolute;
+    top: 40px;
+    left: 40px;
+    z-index: 9;
+    transform: rotate(180deg);
+    border: 1px solid #fe5f1e;
+    padding: 14px;
+    border-radius: 50%;
+    display: flex;
+    transition: .2s ease-in-out;
+
+    &:hover {
+      background: #ffdf8c;
+    }
+}

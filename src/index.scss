@@ -32,6 +32,14 @@ button {
   -ms-touch-action: pan-y;
   touch-action: pan-y;
   -webkit-tap-highlight-color: transparent;
+
+  button {
+    display: flex;
+    margin: 20px auto;
+    padding: 15px;
+    border: 1px solid black;
+    border-radius: 50%;
+  }
 }
 .slick-list {
   position: relative;
