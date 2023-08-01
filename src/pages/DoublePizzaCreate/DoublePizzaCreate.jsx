@@ -1,5 +1,4 @@
-import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
@@ -7,7 +6,7 @@ import 'slick-carousel/slick/slick-theme.css';
 import axios from 'axios';
 import styles from './DoublePizzaCreate.module.scss';
 import arrowImg from '../../assets/img/back.svg';
-import { ButtonBack, Loading } from '../../components';
+import { ButtonBack } from '../../components';
 
 const DoublePizzaCreate: React.FC = () => {
    const [pizzas, setPizzas] = React.useState([]);
@@ -57,12 +56,25 @@ const DoublePizzaCreate: React.FC = () => {
       prevArrow: <CustomPrevArrow className={styles} />,
       nextArrow: <CustomNextArrow />
    };
+   const sliderRightRef = useRef(null);
+   const sliderLeftRef = useRef(null);
+
+   const goToSlide = (ref, slideIndex) => {
+      ref.current.slickGoTo(slideIndex);
+   };
 
    return (
       <>
          <ButtonBack />
          <div className={styles.test}>
-            <Slider {...settings}>
+            <div className={styles.pizzas_check}>
+               {pizzas.map((item) => (
+                  <button onClick={() => goToSlide(sliderLeftRef, item.id - 1)} className={styles.button_check} type='button'>
+                     <img className={styles.button_check__img} src={item.imageUrl} alt='pizza' />
+                  </button>
+               ))}
+            </div>
+            <Slider ref={sliderLeftRef} {...settings}>
                {pizzas.map((item) => (
                   <Link to={`/pizza/${item.id}`}>
                      <div className={styles.pizza_wrapper} key={item.id}>
@@ -76,7 +88,7 @@ const DoublePizzaCreate: React.FC = () => {
                   </Link>
                ))}
             </Slider>
-            <Slider {...settings}>
+            <Slider ref={sliderRightRef} {...settings}>
                {pizzas.map((item) => (
                   <Link to={`/pizza/${item.id}`}>
                      <div className={styles.pizza_wrapper} key={item.id}>
@@ -86,6 +98,13 @@ const DoublePizzaCreate: React.FC = () => {
                   </Link>
                ))}
             </Slider>
+            <div className={styles.pizzas_check}>
+               {pizzas.map((item) => (
+                  <button onClick={() => goToSlide(sliderRightRef, item.id - 1)} className={styles.button_check} type='button'>
+                     <img className={styles.button_check__img} src={item.imageUrl} alt='pizza' />
+                  </button>
+               ))}
+            </div>
          </div>
       </>
    );
