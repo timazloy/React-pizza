@@ -43,14 +43,14 @@ const Pizza: React.FC = () => {
          <ButtonBack />
          <div className={styles.root}>
             <div className={styles.root__images}>
-               <img src={pizza.imgLeft} alt='pizza' />
+               <img src={pizza.imageUrl} alt='pizza' />
                <div className={styles.root__rating}>
                   <img src={rating} alt='rating' />
                   <span className={styles.root__ratingNum}>{pizza.rating}</span>
                </div>
             </div>
             <div className={styles.root__wrapper}>
-               <h1>{pizza.title}</h1>
+               <h1 className={styles.root__title}>{pizza.title}</h1>
                <p className={styles.root__description}>{pizza.description}</p>
                <ul className={styles.root__info}>
                   <li>

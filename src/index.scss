@@ -37,8 +37,6 @@ button {
     display: flex;
     margin: 20px auto;
     padding: 15px;
-    border: 1px solid black;
-    border-radius: 50%;
   }
 }
 .slick-list {
@@ -94,6 +92,8 @@ button {
   float: left;
   height: 100%;
   min-height: 1px;
+  position: relative;
+
   [dir="rtl"] & {
     float: right;
   }

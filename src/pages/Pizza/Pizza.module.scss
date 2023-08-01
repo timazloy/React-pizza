@@ -9,6 +9,11 @@
     width: 100%;
   }
 
+  &__title {
+    line-height: 0.8;
+    margin-bottom: 20px;
+  }
+
   &__images {
     position: relative;
   }

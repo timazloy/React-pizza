@@ -1,12 +1,13 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import axios from 'axios';
 import styles from './DoublePizzaCreate.module.scss';
 import arrowImg from '../../assets/img/back.svg';
-import { ButtonBack } from '../../components';
+import { ButtonBack, Loading } from '../../components';
 
 const DoublePizzaCreate: React.FC = () => {
    const [pizzas, setPizzas] = React.useState([]);
@@ -41,7 +42,7 @@ const DoublePizzaCreate: React.FC = () => {
       infinite: true,
       slidesToShow: 1.6,
       slidesToScroll: 1,
-      // swipe: false,
+      swipe: false,
       vertical: true,
       verticalSwiping: true,
       // swipeToSlide: true,
@@ -63,25 +64,26 @@ const DoublePizzaCreate: React.FC = () => {
          <div className={styles.test}>
             <Slider {...settings}>
                {pizzas.map((item) => (
-                  <div className={styles.pizza_wrapper} key={item.id}>
-                     <img
-                        className={`${styles.pizza_wrapper__img} ${styles.pizza_wrapper__img_left}`}
-                        src={item.imageLeftPart}
-                        alt='pizza'
-                     />
-                     <h4 className={styles.pizza_name}>{item.title}</h4>
-                     {/*<p>{item.description}</p>*/}
-                     {console.log(123)}
-                  </div>
+                  <Link to={`/pizza/${item.id}`}>
+                     <div className={styles.pizza_wrapper} key={item.id}>
+                        <img
+                           className={`${styles.pizza_wrapper__img} ${styles.pizza_wrapper__img_left}`}
+                           src={item.imageLeftPart}
+                           alt='pizza'
+                        />
+                        <h4 className={`${styles.pizza_name} ${styles.pizza_name_left}`}>{item.title}</h4>
+                     </div>
+                  </Link>
                ))}
             </Slider>
             <Slider {...settings}>
                {pizzas.map((item) => (
-                  <div className={styles.pizza_wrapper} key={item.id}>
-                     <img className={styles.pizza_wrapper__img} src={item.imageRightPart} alt='pizza' />
-                     <h4 className={styles.pizza_name}>{item.title}</h4>
-                     {/*<p>{item.description}</p>*/}
-                  </div>
+                  <Link to={`/pizza/${item.id}`}>
+                     <div className={styles.pizza_wrapper} key={item.id}>
+                        <img className={styles.pizza_wrapper__img} src={item.imageRightPart} alt='pizza' />
+                        <h4 className={`${styles.pizza_name} ${styles.pizza_name_right}`}>{item.title}</h4>
+                     </div>
+                  </Link>
                ))}
             </Slider>
          </div>
