@@ -54,6 +54,18 @@
   }
 }
 
+.pizzas_plus {
+  position: absolute;
+  bottom: 125px;
+  padding: 20px;
+  background: #ffdf8c;
+  max-width: 400px;
+  text-align: center;
+  width: 100%;
+  border-radius: 20px;
+  z-index: 9;
+}
+
 .active {
   border: 1px solid #fe5f1e;
   border-radius: 5px;
