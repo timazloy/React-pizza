@@ -49,32 +49,47 @@ const DoublePizzaCreate: React.FC = () => {
          // console.log('before change', currentSlide, nextSlide);
          console.log(pizzas[currentSlide]);
       },
-      afterChange: function (currentSlide) {
-         // console.log('after change', currentSlide);
-         // console.log(pizzas[currentSlide]);
-      },
+      // afterChange: function (currentSlide) {
+      //    // console.log('after change', currentSlide);
+      //    // console.log(pizzas[currentSlide]);
+      // },
       prevArrow: <CustomPrevArrow className={styles} />,
       nextArrow: <CustomNextArrow />
    };
    const sliderRightRef = useRef(null);
    const sliderLeftRef = useRef(null);
+   const [activeSlideRight, setActiveSlideRight] = React.useState(0);
+   const [activeSlideLeft, setActiveSlideLeft] = React.useState(0);
 
-   const goToSlide = (ref, slideIndex) => {
+   const goToSlide = (ref, slideIndex, setActive) => {
       ref.current.slickGoTo(slideIndex);
+      setActive(slideIndex + 1);
    };
+
+   const handleSlideChangeLeft = React.useCallback((currentSlide) => {
+      setActiveSlideLeft(currentSlide + 1);
+   }, []);
+
+   const handleSlideChangeRight = React.useCallback((currentSlide) => {
+      setActiveSlideRight(currentSlide + 1);
+   }, []);
 
    return (
       <>
          <ButtonBack />
          <div className={styles.test}>
             <div className={styles.pizzas_check}>
-               {pizzas.map((item) => (
-                  <button onClick={() => goToSlide(sliderLeftRef, item.id - 1)} className={styles.button_check} type='button'>
+               {pizzas.map((item, index) => (
+                  <button
+                     onClick={() => goToSlide(sliderLeftRef, item.id - 1, setActiveSlideLeft)}
+                     className={`${styles.button_check} ${index === activeSlideLeft ? styles.active : ''}`}
+                     type='button'
+                  >
                      <img className={styles.button_check__img} src={item.imageUrl} alt='pizza' />
                   </button>
                ))}
             </div>
-            <Slider ref={sliderLeftRef} {...settings}>
+            <Slider afterChange={handleSlideChangeLeft} ref={sliderLeftRef} {...settings}>
                {pizzas.map((item) => (
                   <Link to={`/pizza/${item.id}`}>
                      <div className={styles.pizza_wrapper} key={item.id}>
@@ -88,7 +103,7 @@ const DoublePizzaCreate: React.FC = () => {
                   </Link>
                ))}
             </Slider>
-            <Slider ref={sliderRightRef} {...settings}>
+            <Slider afterChange={handleSlideChangeRight} ref={sliderRightRef} {...settings}>
                {pizzas.map((item) => (
                   <Link to={`/pizza/${item.id}`}>
                      <div className={styles.pizza_wrapper} key={item.id}>
@@ -99,8 +114,12 @@ const DoublePizzaCreate: React.FC = () => {
                ))}
             </Slider>
             <div className={styles.pizzas_check}>
-               {pizzas.map((item) => (
-                  <button onClick={() => goToSlide(sliderRightRef, item.id - 1)} className={styles.button_check} type='button'>
+               {pizzas.map((item, index) => (
+                  <button
+                     onClick={() => goToSlide(sliderRightRef, item.id - 1, setActiveSlideRight)}
+                     className={`${styles.button_check} ${index === activeSlideRight ? styles.active : ''}`}
+                     type='button'
+                  >
                      <img className={styles.button_check__img} src={item.imageUrl} alt='pizza' />
                   </button>
                ))}
