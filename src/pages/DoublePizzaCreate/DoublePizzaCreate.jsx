@@ -6,17 +6,22 @@ import 'slick-carousel/slick/slick-theme.css';
 import axios from 'axios';
 import styles from './DoublePizzaCreate.module.scss';
 import arrowImg from '../../assets/img/back.svg';
-import { ButtonBack } from '../../components';
+import { ButtonBack, Loading } from '../../components';
 
 const DoublePizzaCreate: React.FC = () => {
    const [pizzas, setPizzas] = React.useState([]);
 
    React.useEffect(() => {
       async function fetchData() {
-         const pizzas = await axios.get('https://639f35a97aaf11ceb8954a67.mockapi.io/Themes');
-         setPizzas(pizzas.data);
-         setCurrentPizzaLeft(pizzas.data[0].title);
-         setCurrentPizzaRight(pizzas.data[0].title);
+         try {
+            const pizzas = await axios.get('https://639f35a97aaf11ceb8954a67.mockapi.io/Themes');
+            setPizzas(pizzas.data);
+            setCurrentPizzaLeft(pizzas.data[0].title);
+            setCurrentPizzaRight(pizzas.data[0].title);
+            setTotalPrice(Math.ceil(pizzas.data[0].price + pizzas.data[0].price) / 2);
+         } catch (error) {
+            console.log(error);
+         }
       }
       fetchData();
    }, []);
@@ -64,6 +69,11 @@ const DoublePizzaCreate: React.FC = () => {
    const [activeSlideLeft, setActiveSlideLeft] = React.useState(0);
    const [currentPizzaLeft, setCurrentPizzaLeft] = React.useState('');
    const [currentPizzaRight, setCurrentPizzaRight] = React.useState('');
+   const [totalPrice, setTotalPrice] = React.useState(() => {
+      const leftPizzaPrice = pizzas[0]?.price || 0;
+      const rightPizzaPrice = pizzas[0]?.price || 0;
+      return leftPizzaPrice + rightPizzaPrice;
+   });
 
    const goToSlide = (ref, slideIndex, setActive) => {
       ref.current.slickGoTo(slideIndex);
@@ -73,12 +83,24 @@ const DoublePizzaCreate: React.FC = () => {
    const handleSlideChangeLeft = (currentSlide) => {
       setActiveSlideLeft(currentSlide);
       setCurrentPizzaLeft(pizzas[currentSlide].title);
+
+      const rightPizzaPrice = pizzas[activeSlideRight]?.price || 0;
+      const leftPizzaPrice = pizzas[currentSlide]?.price || 0;
+      setTotalPrice(Math.ceil((leftPizzaPrice + rightPizzaPrice) / 2));
    };
 
    const handleSlideChangeRight = (currentSlide) => {
       setActiveSlideRight(currentSlide);
       setCurrentPizzaRight(pizzas[currentSlide].title);
+
+      const leftPizzaPrice = pizzas[activeSlideLeft]?.price || 0;
+      const rightPizzaPrice = pizzas[currentSlide]?.price || 0;
+      setTotalPrice(Math.ceil((leftPizzaPrice + rightPizzaPrice) / 2));
    };
+
+   if (!pizzas || pizzas.length === 0) {
+      return <Loading />;
+   }
 
    return (
       <>
@@ -91,6 +113,7 @@ const DoublePizzaCreate: React.FC = () => {
                   {currentPizzaLeft} + {currentPizzaRight}
                </div>
             )}
+            <div className={styles.total_price}>Итого: {totalPrice} ₽</div>
 
             <div className={styles.pizzas_check}>
                {pizzas.map((item, index) => (
