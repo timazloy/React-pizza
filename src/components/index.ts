@@ -11,3 +11,4 @@ export * from './Header';
 export * from './Sort';
 export * from './CreatePizza/CreatePizzaLink';
 export * from './ButtonBack/ButtonBack';
+export * from './ConfigurePizza/ConfigurePizza';

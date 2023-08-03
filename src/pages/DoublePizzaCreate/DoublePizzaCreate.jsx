@@ -6,7 +6,7 @@ import 'slick-carousel/slick/slick-theme.css';
 import axios from 'axios';
 import styles from './DoublePizzaCreate.module.scss';
 import arrowImg from '../../assets/img/back.svg';
-import { ButtonBack, Loading } from '../../components';
+import { ButtonBack, ConfigurePizza, Loading } from '../../components';
 
 const DoublePizzaCreate: React.FC = () => {
    const [pizzas, setPizzas] = React.useState([]);
@@ -93,10 +93,15 @@ const DoublePizzaCreate: React.FC = () => {
       setActiveSlideRight(currentSlide);
       setCurrentPizzaRight(pizzas[currentSlide].title);
 
+      console.log(pizzas[currentSlide].sizes[activeSize]);
+
       const leftPizzaPrice = pizzas[activeSlideLeft]?.price || 0;
       const rightPizzaPrice = pizzas[currentSlide]?.price || 0;
       setTotalPrice(Math.ceil((leftPizzaPrice + rightPizzaPrice) / 2));
    };
+
+   const [activeSize, setActiveSize] = React.useState(0);
+   const [activeType, setActiveType] = React.useState(0);
 
    if (!pizzas || pizzas.length === 0) {
       return <Loading />;
@@ -105,7 +110,7 @@ const DoublePizzaCreate: React.FC = () => {
    return (
       <>
          <ButtonBack />
-         <div className={styles.test}>
+         <div className={styles.wrapper}>
             {currentPizzaLeft === currentPizzaRight ? (
                <div className={styles.pizzas_plus}>{currentPizzaLeft}</div>
             ) : (
@@ -115,18 +120,29 @@ const DoublePizzaCreate: React.FC = () => {
             )}
             <div className={styles.total_price}>Итого: {totalPrice} ₽</div>
 
-            <div className={styles.pizzas_check}>
-               {pizzas.map((item, index) => (
-                  <button
-                     key={item.id}
-                     onClick={() => goToSlide(sliderLeftRef, item.id, setActiveSlideLeft)}
-                     className={`${styles.button_check} ${index === activeSlideLeft ? styles.active : ''}`}
-                     type='button'
-                  >
-                     <img className={styles.button_check__img} src={item.imageUrl} alt='pizza' />
-                  </button>
-               ))}
+            <div className={styles.wrapper__column}>
+               <div className={styles.pizzas_check}>
+                  {pizzas.map((item, index) => (
+                     <button
+                        key={item.id}
+                        onClick={() => goToSlide(sliderLeftRef, item.id, setActiveSlideLeft)}
+                        className={`${styles.button_check} ${index === activeSlideLeft ? styles.active : ''}`}
+                        type='button'
+                     >
+                        <img className={styles.button_check__img} src={item.imageUrl} alt='pizza' />
+                     </button>
+                  ))}
+               </div>
+               <ConfigurePizza
+                  keysTypes={['тонкое', 'традиционное']}
+                  keysSizes={['26', '30', '40']}
+                  setActiveType={setActiveType}
+                  activeType={activeType}
+                  setActiveSize={setActiveSize}
+                  activeSize={activeSize}
+               />
             </div>
+
             <Slider afterChange={handleSlideChangeLeft} ref={sliderLeftRef} {...settings}>
                {pizzas.map((item) => (
                   <Link to={`/pizza/${item.id}`} key={item.id}>

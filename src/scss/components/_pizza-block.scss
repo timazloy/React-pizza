@@ -18,8 +18,6 @@
     }
   }
 
-
-
   &__image {
     width: 260px;
   }
@@ -49,6 +47,7 @@
       li {
         padding: 8px;
         flex: 1;
+        text-align: center;
         cursor: pointer;
         font-weight: 600;
         font-size: 14px;

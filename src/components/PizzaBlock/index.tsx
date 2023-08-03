@@ -5,6 +5,9 @@ import ratingIMG from '../../assets/img/rating2.svg';
 import { CartItem } from '../../redux/slices/cartSlice';
 import { Link, useNavigate } from 'react-router-dom';
 
+import { ConfigurePizza } from '../index';
+import { log } from 'util';
+
 type PizzaBlockProps = {
    id: string;
    imageUrl: string;
@@ -54,23 +57,30 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({ title, imageUrl, types, 
                <span className='pizza-block__rating-text'>{rating}</span>
             </div>
          </Link>
-
-         <div className='pizza-block__selector'>
-            <ul>
-               {keysTypes.map((type, i) => (
-                  <li onClick={() => setActiveType(i)} className={activeType === i ? 'active' : ''} key={i}>
-                     {keysTypes[i]}
-                  </li>
-               ))}
-            </ul>
-            <ul>
-               {keysSizes.map((size, i) => (
-                  <li onClick={() => setActiveSize(i)} className={activeSize === i ? 'active' : ''} key={i}>
-                     {keysSizes[i]} см.
-                  </li>
-               ))}
-            </ul>
-         </div>
+         <ConfigurePizza
+            keysTypes={keysTypes}
+            keysSizes={keysSizes}
+            setActiveType={setActiveType}
+            activeType={activeType}
+            setActiveSize={setActiveSize}
+            activeSize={activeSize}
+         />
+         {/*<div className='pizza-block__selector'>*/}
+         {/*   <ul>*/}
+         {/*      {keysTypes.map((type, i) => (*/}
+         {/*         <li onClick={() => setActiveType(i)} className={activeType === i ? 'active' : ''} key={i}>*/}
+         {/*            {keysTypes[i]}*/}
+         {/*         </li>*/}
+         {/*      ))}*/}
+         {/*   </ul>*/}
+         {/*   <ul>*/}
+         {/*      {keysSizes.map((size, i) => (*/}
+         {/*         <li onClick={() => setActiveSize(i)} className={activeSize === i ? 'active' : ''} key={i}>*/}
+         {/*            {keysSizes[i]} см.*/}
+         {/*         </li>*/}
+         {/*      ))}*/}
+         {/*   </ul>*/}
+         {/*</div>*/}
          <div className='pizza-block__bottom'>
             <div className='pizza-block__price'>Цена {totalCost} ₽</div>
             <button onClick={addToCat} type='button' className='button button--outline button--add'>
