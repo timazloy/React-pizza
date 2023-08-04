@@ -15,6 +15,8 @@ type CartItemProps = {
 export const CartItemBlock: React.FC<CartItemProps> = ({ id, title, img, price, type, size, count }) => {
    const dispatch = useDispatch();
 
+   console.log(img);
+
    const onClickPlus = () => {
       dispatch(onPlusCount({ id, type, size } as CartItem));
    };
@@ -28,7 +30,14 @@ export const CartItemBlock: React.FC<CartItemProps> = ({ id, title, img, price, 
    return (
       <div className='cart__item'>
          <div className='cart__item-img'>
-            <img className='pizza-block__image' src={img} alt='Pizza' />
+            {typeof img === 'string' ? (
+               <img className='pizza-block__image' src={img} alt='Pizza' />
+            ) : (
+               <div>
+                  <img src={img[0]} alt='half of pizza' />
+                  <img src={img[1]} alt='half of pizza' />
+               </div>
+            )}
          </div>
          <div className='cart__item-info'>
             <h3>{title}</h3>

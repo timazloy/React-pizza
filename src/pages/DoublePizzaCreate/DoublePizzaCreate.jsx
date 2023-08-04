@@ -1,4 +1,5 @@
 import React, { useRef } from 'react';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
@@ -6,10 +7,14 @@ import 'slick-carousel/slick/slick-theme.css';
 import axios from 'axios';
 import styles from './DoublePizzaCreate.module.scss';
 import arrowImg from '../../assets/img/back.svg';
-import { ButtonBack, ConfigurePizza, Loading } from '../../components';
+import { ButtonAdd, ButtonBack, ConfigurePizza, Loading } from '../../components';
+import { addToCart, CartItem } from '../../redux/slices/cartSlice';
 
 const DoublePizzaCreate: React.FC = () => {
    const [pizzas, setPizzas] = React.useState([]);
+   const [leftImg, setLeftImg] = React.useState(pizzas[0]?.imageLeftPart);
+   const [rightImg, setRightImg] = React.useState(pizzas[0]?.imageRightPart);
+   const dispatch = useDispatch();
 
    React.useEffect(() => {
       async function fetchData() {
@@ -19,6 +24,8 @@ const DoublePizzaCreate: React.FC = () => {
             setCurrentPizzaLeft(pizzas.data[0].title);
             setCurrentPizzaRight(pizzas.data[0].title);
             setTotalPrice(Math.ceil(pizzas.data[0].price + pizzas.data[0].price) / 2);
+            setLeftImg(pizzas.data[0]?.imageLeftPart);
+            setRightImg(pizzas.data[0]?.imageRightPart);
          } catch (error) {
             console.log(error);
          }
@@ -85,11 +92,11 @@ const DoublePizzaCreate: React.FC = () => {
       setCurrentPizzaRight(pizzas[currentSlide].title);
    };
 
-   const changeSize = (size, index) => {
+   const changeSize = (size) => {
       setActiveSize(size);
    };
 
-   const changeType = (type, index) => {
+   const changeType = (type) => {
       setActiveType(type);
    };
 
@@ -98,7 +105,25 @@ const DoublePizzaCreate: React.FC = () => {
       const rightPizzaPrice =
          pizzas[activeSlideRight]?.sizes[activeSize] / 2 + pizzas[activeSlideRight]?.types[activeType] / 2 || 0;
       setTotalPrice(Math.ceil(leftPizzaPrice + rightPizzaPrice));
+      setLeftImg(pizzas[activeSlideLeft]?.imageLeftPart);
+      setRightImg(pizzas[activeSlideRight]?.imageRightPart);
    }, [activeSize, activeSlideLeft, activeSlideRight, activeType]);
+
+   const addToCat = () => {
+      const item: CartItem = {
+         id: currentPizzaLeft + currentPizzaRight,
+         title: currentPizzaLeft === currentPizzaRight ? currentPizzaRight : `${currentPizzaLeft} + ${currentPizzaRight}`,
+         img: [leftImg, rightImg],
+         imgLeft: leftImg,
+         imgRight: rightImg,
+         price: totalPrice,
+         type: activeType,
+         size: activeSize,
+         count: 1
+      };
+
+      dispatch(addToCart(item));
+   };
 
    if (!pizzas || pizzas.length === 0) {
       return <Loading />;
@@ -149,7 +174,6 @@ const DoublePizzaCreate: React.FC = () => {
                            src={item.imageLeftPart}
                            alt='pizza'
                         />
-                        {/*<h4 className={`${styles.pizza_name} ${styles.pizza_name_left}`}>{item.title}</h4>*/}
                      </div>
                   </Link>
                ))}
@@ -159,22 +183,26 @@ const DoublePizzaCreate: React.FC = () => {
                   <Link to={`/pizza/${item.id}`} key={item.id}>
                      <div className={styles.pizza_wrapper} key={item.id}>
                         <img className={styles.pizza_wrapper__img} src={item.imageRightPart} alt='pizza' />
-                        {/*<h4 className={`${styles.pizza_name} ${styles.pizza_name_right}`}>{item.title}</h4>*/}
                      </div>
                   </Link>
                ))}
             </Slider>
             <div className={styles.pizzas_check}>
-               {pizzas.map((item, index) => (
-                  <button
-                     key={item.id}
-                     onClick={() => goToSlide(sliderRightRef, item.id, setActiveSlideRight)}
-                     className={`${styles.button_check} ${index === activeSlideRight ? styles.active : ''}`}
-                     type='button'
-                  >
-                     <img className={styles.button_check__img} src={item.imageUrl} alt='pizza' />
-                  </button>
-               ))}
+               <div className={styles.wrapper__column}>
+                  <div className={styles.pizzas_check}>
+                     {pizzas.map((item, index) => (
+                        <button
+                           key={item.id}
+                           onClick={() => goToSlide(sliderRightRef, item.id, setActiveSlideRight)}
+                           className={`${styles.button_check} ${index === activeSlideRight ? styles.active : ''}`}
+                           type='button'
+                        >
+                           <img className={styles.button_check__img} src={item.imageUrl} alt='pizza' />
+                        </button>
+                     ))}
+                  </div>
+                  <ButtonAdd addToCat={addToCat} />
+               </div>
             </div>
          </div>
       </>
