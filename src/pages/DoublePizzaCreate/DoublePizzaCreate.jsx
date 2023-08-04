@@ -89,6 +89,9 @@ const DoublePizzaCreate: React.FC = () => {
       setTotalPrice(Math.ceil((leftPizzaPrice + rightPizzaPrice) / 2));
    };
 
+   const [activeSize, setActiveSize] = React.useState('26');
+   const [activeType, setActiveType] = React.useState('тонкое');
+
    const handleSlideChangeRight = (currentSlide) => {
       setActiveSlideRight(currentSlide);
       setCurrentPizzaRight(pizzas[currentSlide].title);
@@ -100,8 +103,15 @@ const DoublePizzaCreate: React.FC = () => {
       setTotalPrice(Math.ceil((leftPizzaPrice + rightPizzaPrice) / 2));
    };
 
-   const [activeSize, setActiveSize] = React.useState(0);
-   const [activeType, setActiveType] = React.useState(0);
+   const changeSize = (size, index) => {
+      setActiveSize(size);
+      console.log(size);
+   };
+
+   const changeType = (type, index) => {
+      setActiveType(type);
+      console.log(type);
+   };
 
    if (!pizzas || pizzas.length === 0) {
       return <Loading />;
@@ -134,11 +144,11 @@ const DoublePizzaCreate: React.FC = () => {
                   ))}
                </div>
                <ConfigurePizza
+                  changeSize={changeSize}
+                  changeType={changeType}
                   keysTypes={['тонкое', 'традиционное']}
                   keysSizes={['26', '30', '40']}
-                  setActiveType={setActiveType}
                   activeType={activeType}
-                  setActiveSize={setActiveSize}
                   activeSize={activeSize}
                />
             </div>

@@ -6,30 +6,26 @@ import { CartItem } from '../../redux/slices/cartSlice';
 import { Link, useNavigate } from 'react-router-dom';
 
 import { ConfigurePizza } from '../index';
-import { log } from 'util';
+// import { log } from 'util';
 
 type PizzaBlockProps = {
-   id: string;
-   imageUrl: string;
-   title: string;
-   description: string;
-   price: string;
-   rating: string;
-   types: number[];
-   sizes: number[];
+   id: string,
+   imageUrl: string,
+   title: string,
+   description: string,
+   price: string,
+   rating: string,
+   types: number[],
+   sizes: number[]
 };
 
 export const PizzaBlock: React.FC<PizzaBlockProps> = ({ title, imageUrl, types, sizes, price, id, rating }) => {
-   const [activeSize, setActiveSize] = React.useState(0);
-   const [activeType, setActiveType] = React.useState(0);
+   const [activeSize, setActiveSize] = React.useState('26');
+   const [activeType, setActiveType] = React.useState('тонкое');
 
    const keysTypes = Object.keys(types);
    const keysSizes = Object.keys(sizes);
-
-   const type = keysTypes[activeType];
-   const size = Number(keysSizes[activeSize]);
-   // @ts-ignore
-   const totalCost = Number(types[type]) + Number(sizes[size]);
+   const totalCost = sizes[activeSize] + types[activeType];
 
    const dispatch = useDispatch();
 
@@ -39,12 +35,24 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({ title, imageUrl, types, 
          title,
          img: imageUrl,
          price: totalCost,
-         type,
-         size,
+         type: activeType,
+         size: activeSize,
          count: 1
       };
 
       dispatch(addToCart(item));
+   };
+
+   const changeSize = (size: any, index: any) => {
+      setActiveSize(size);
+      console.log(activeSize);
+      console.log(sizes);
+   };
+
+   const changeType = (type: any, index: any) => {
+      setActiveType(type);
+      console.log(activeType);
+      console.log(types);
    };
 
    return (
@@ -58,29 +66,13 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({ title, imageUrl, types, 
             </div>
          </Link>
          <ConfigurePizza
+            changeSize={changeSize}
+            changeType={changeType}
             keysTypes={keysTypes}
             keysSizes={keysSizes}
-            setActiveType={setActiveType}
             activeType={activeType}
-            setActiveSize={setActiveSize}
             activeSize={activeSize}
          />
-         {/*<div className='pizza-block__selector'>*/}
-         {/*   <ul>*/}
-         {/*      {keysTypes.map((type, i) => (*/}
-         {/*         <li onClick={() => setActiveType(i)} className={activeType === i ? 'active' : ''} key={i}>*/}
-         {/*            {keysTypes[i]}*/}
-         {/*         </li>*/}
-         {/*      ))}*/}
-         {/*   </ul>*/}
-         {/*   <ul>*/}
-         {/*      {keysSizes.map((size, i) => (*/}
-         {/*         <li onClick={() => setActiveSize(i)} className={activeSize === i ? 'active' : ''} key={i}>*/}
-         {/*            {keysSizes[i]} см.*/}
-         {/*         </li>*/}
-         {/*      ))}*/}
-         {/*   </ul>*/}
-         {/*</div>*/}
          <div className='pizza-block__bottom'>
             <div className='pizza-block__price'>Цена {totalCost} ₽</div>
             <button onClick={addToCat} type='button' className='button button--outline button--add'>
