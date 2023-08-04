@@ -51,18 +51,13 @@ const DoublePizzaCreate: React.FC = () => {
       swipe: false,
       vertical: true,
       verticalSwiping: true,
-      // swipeToSlide: true,
-      // beforeChange: function (currentSlide, nextSlide) {
-      //    // console.log('before change', currentSlide, nextSlide);
-      //    // console.log(pizzas[currentSlide]);
-      // },
-      // afterChange: function (currentSlide) {
-      //    // console.log('after change', currentSlide);
-      //    console.log(pizzas[currentSlide]);
-      // },
       prevArrow: <CustomPrevArrow className={styles} />,
       nextArrow: <CustomNextArrow />
    };
+
+   const [activeSize, setActiveSize] = React.useState('26');
+   const [activeType, setActiveType] = React.useState('тонкое');
+
    const sliderRightRef = useRef(null);
    const sliderLeftRef = useRef(null);
    const [activeSlideRight, setActiveSlideRight] = React.useState(0);
@@ -70,8 +65,8 @@ const DoublePizzaCreate: React.FC = () => {
    const [currentPizzaLeft, setCurrentPizzaLeft] = React.useState('');
    const [currentPizzaRight, setCurrentPizzaRight] = React.useState('');
    const [totalPrice, setTotalPrice] = React.useState(() => {
-      const leftPizzaPrice = pizzas[0]?.price || 0;
-      const rightPizzaPrice = pizzas[0]?.price || 0;
+      const leftPizzaPrice = pizzas[0]?.sizes[activeSize] / 2 + pizzas[0]?.types[activeType] / 2 || 0;
+      const rightPizzaPrice = pizzas[0]?.sizes[activeSize] / 2 + pizzas[0]?.types[activeType] / 2 || 0;
       return leftPizzaPrice + rightPizzaPrice;
    });
 
@@ -83,35 +78,27 @@ const DoublePizzaCreate: React.FC = () => {
    const handleSlideChangeLeft = (currentSlide) => {
       setActiveSlideLeft(currentSlide);
       setCurrentPizzaLeft(pizzas[currentSlide].title);
-
-      const rightPizzaPrice = pizzas[activeSlideRight]?.price || 0;
-      const leftPizzaPrice = pizzas[currentSlide]?.price || 0;
-      setTotalPrice(Math.ceil((leftPizzaPrice + rightPizzaPrice) / 2));
    };
-
-   const [activeSize, setActiveSize] = React.useState('26');
-   const [activeType, setActiveType] = React.useState('тонкое');
 
    const handleSlideChangeRight = (currentSlide) => {
       setActiveSlideRight(currentSlide);
       setCurrentPizzaRight(pizzas[currentSlide].title);
-
-      console.log(pizzas[currentSlide].sizes[activeSize]);
-
-      const leftPizzaPrice = pizzas[activeSlideLeft]?.price || 0;
-      const rightPizzaPrice = pizzas[currentSlide]?.price || 0;
-      setTotalPrice(Math.ceil((leftPizzaPrice + rightPizzaPrice) / 2));
    };
 
    const changeSize = (size, index) => {
       setActiveSize(size);
-      console.log(size);
    };
 
    const changeType = (type, index) => {
       setActiveType(type);
-      console.log(type);
    };
+
+   React.useEffect(() => {
+      const leftPizzaPrice = pizzas[activeSlideLeft]?.sizes[activeSize] / 2 + pizzas[activeSlideLeft]?.types[activeType] / 2 || 0;
+      const rightPizzaPrice =
+         pizzas[activeSlideRight]?.sizes[activeSize] / 2 + pizzas[activeSlideRight]?.types[activeType] / 2 || 0;
+      setTotalPrice(Math.ceil(leftPizzaPrice + rightPizzaPrice));
+   }, [activeSize, activeSlideLeft, activeSlideRight, activeType]);
 
    if (!pizzas || pizzas.length === 0) {
       return <Loading />;

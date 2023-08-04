@@ -20,14 +20,14 @@ type PizzaBlockProps = {
 };
 
 export const PizzaBlock: React.FC<PizzaBlockProps> = ({ title, imageUrl, types, sizes, price, id, rating }) => {
+   const dispatch = useDispatch();
+
    const [activeSize, setActiveSize] = React.useState('26');
    const [activeType, setActiveType] = React.useState('тонкое');
 
    const keysTypes = Object.keys(types);
    const keysSizes = Object.keys(sizes);
    const totalCost = sizes[activeSize] + types[activeType];
-
-   const dispatch = useDispatch();
 
    const addToCat = () => {
       const item: CartItem = {
@@ -45,14 +45,10 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({ title, imageUrl, types, 
 
    const changeSize = (size: any, index: any) => {
       setActiveSize(size);
-      console.log(activeSize);
-      console.log(sizes);
    };
 
    const changeType = (type: any, index: any) => {
       setActiveType(type);
-      console.log(activeType);
-      console.log(types);
    };
 
    return (
