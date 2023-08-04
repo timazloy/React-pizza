@@ -111,7 +111,7 @@ const DoublePizzaCreate: React.FC = () => {
 
    const addToCat = () => {
       const item: CartItem = {
-         id: currentPizzaLeft + currentPizzaRight,
+         id: currentPizzaLeft === currentPizzaRight ? pizzas[activeSlideLeft]?.id : currentPizzaLeft + currentPizzaRight,
          title: currentPizzaLeft === currentPizzaRight ? currentPizzaRight : `${currentPizzaLeft} + ${currentPizzaRight}`,
          img: [leftImg, rightImg],
          imgLeft: leftImg,
