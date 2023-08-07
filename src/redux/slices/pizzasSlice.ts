@@ -16,15 +16,15 @@ type Pizza = {
 export type SearchPizzaParams = {
    currentPage: string;
    category: string;
-   selectedSort: Sort;
+   activeSort: Sort;
    selectedDirection: string;
    searchValue: string;
 };
 
 export const fetchPizzas = createAsyncThunk<Pizza[], SearchPizzaParams>('pizza/fetchPizzasStatus', async (params) => {
-   const { currentPage, category, selectedSort, selectedDirection, searchValue } = params;
+   const { currentPage, category, activeSort, selectedDirection, searchValue } = params;
    const { data } = await axios.get<Pizza[]>(
-      `https://639f35a97aaf11ceb8954a67.mockapi.io/Themes?page=${currentPage}&limit=8${category}&sortBy=${selectedSort}&order=${selectedDirection}&search=${searchValue}`
+      `https://639f35a97aaf11ceb8954a67.mockapi.io/Themes?page=${currentPage}&limit=8${category}&sortBy=${activeSort}&order=${selectedDirection}&search=${searchValue}`
    );
 
    return data;
