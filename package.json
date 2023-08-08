@@ -53,6 +53,7 @@
     ]
   },
   "devDependencies": {
+    "@babel/plugin-proposal-decorators": "^7.22.10",
     "eslint": "^8.43.0",
     "eslint-plugin-react": "^7.32.2",
     "prettier": "^2.8.8"
