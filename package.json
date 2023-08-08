@@ -26,7 +26,8 @@
     "sass": "1.63.6",
     "slick-carousel": "1.8.1",
     "typescript": "5.1.6",
-    "web-vitals": "2.1.4"
+    "web-vitals": "2.1.4",
+    "@babel/plugin-proposal-decorators": "^7.22.10"
   },
   "scripts": {
     "start": "react-scripts start",
