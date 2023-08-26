@@ -15,3 +15,4 @@ export * from './ConfigurePizza/ConfigurePizza';
 export * from './ButtonAdd/ButtonAdd';
 export * from './Slider/Slider';
 export * from './SliderButtons/SliderButtons';
+export * from './Slider/CustomArrow/CustomArrow';

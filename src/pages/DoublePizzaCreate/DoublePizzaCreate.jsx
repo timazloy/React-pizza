@@ -4,14 +4,23 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import axios from 'axios';
 import styles from './DoublePizzaCreate.module.scss';
-import arrowImg from '../../assets/img/back.svg';
-import { ButtonAdd, ButtonBack, ConfigurePizza, Loading, SliderPizza, c, SliderButtons } from '../../components';
+import { ButtonAdd, ButtonBack, ConfigurePizza, Loading, SliderPizza, SliderButtons, CustomArrow } from '../../components';
 import { addToCart } from '../../redux/slices/cartSlice';
 
 const DoublePizzaCreate = () => {
    const [pizzas, setPizzas] = React.useState([]);
    const [leftImg, setLeftImg] = React.useState(pizzas[0]?.imageLeftPart);
    const [rightImg, setRightImg] = React.useState(pizzas[0]?.imageRightPart);
+   const [activeSize, setActiveSize] = React.useState('26');
+   const [activeType, setActiveType] = React.useState('тонкое');
+   const [activeSlideRight, setActiveSlideRight] = React.useState(0);
+   const [activeSlideLeft, setActiveSlideLeft] = React.useState(0);
+   const [currentPizzaLeft, setCurrentPizzaLeft] = React.useState('');
+   const [currentPizzaRight, setCurrentPizzaRight] = React.useState('');
+
+   const sliderRightRef = useRef(null);
+   const sliderLeftRef = useRef(null);
+
    const dispatch = useDispatch();
 
    React.useEffect(() => {
@@ -31,44 +40,17 @@ const DoublePizzaCreate = () => {
       fetchData();
    }, []);
 
-   const CustomPrevArrow = (props) => {
-      const { onClick } = props;
-      return (
-         <button className={styles.arrow_prev} onClick={onClick} type='button'>
-            <img src={arrowImg} alt='arrow' />
-         </button>
-      );
-   };
-
-   const CustomNextArrow = (props) => {
-      const { onClick } = props;
-      return (
-         <button className={styles.arrow_next} onClick={onClick} type='button'>
-            <img src={arrowImg} alt='arrow' />
-         </button>
-      );
-   };
-
-   const settings = {
+   const settingsSlider = {
       infinite: true,
       slidesToShow: 1,
       slidesToScroll: 1,
       swipe: false,
       vertical: true,
       verticalSwiping: true,
-      prevArrow: <CustomPrevArrow className={styles} />,
-      nextArrow: <CustomNextArrow />
+      prevArrow: <CustomArrow direction='prev' className={styles} />,
+      nextArrow: <CustomArrow direction='next' />
    };
 
-   const [activeSize, setActiveSize] = React.useState('26');
-   const [activeType, setActiveType] = React.useState('тонкое');
-
-   const sliderRightRef = useRef(null);
-   const sliderLeftRef = useRef(null);
-   const [activeSlideRight, setActiveSlideRight] = React.useState(0);
-   const [activeSlideLeft, setActiveSlideLeft] = React.useState(0);
-   const [currentPizzaLeft, setCurrentPizzaLeft] = React.useState('');
-   const [currentPizzaRight, setCurrentPizzaRight] = React.useState('');
    const [totalPrice, setTotalPrice] = React.useState(() => {
       const leftPizzaPrice = pizzas[0]?.sizes[activeSize] / 2 + pizzas[0]?.types[activeType] / 2 || 0;
       const rightPizzaPrice = pizzas[0]?.sizes[activeSize] / 2 + pizzas[0]?.types[activeType] / 2 || 0;
@@ -162,14 +144,14 @@ const DoublePizzaCreate = () => {
                side='left'
                afterChange={handleSlideChangeLeft}
                ref={sliderLeftRef}
-               settings={settings}
+               settings={settingsSlider}
                pizzas={pizzas}
             />
             <SliderPizza
                side='right'
                afterChange={handleSlideChangeRight}
                ref={sliderRightRef}
-               settings={settings}
+               settings={settingsSlider}
                pizzas={pizzas}
             />
             <div className={styles.pizzas_check}>
