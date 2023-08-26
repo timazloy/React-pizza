@@ -1,0 +1,15 @@
+.pizzas_check {
+  max-width: 300px;
+}
+
+.button_check {
+  max-width: 100px;
+  max-height: 100px;
+  width: 100%;
+  height: 100%;
+  padding: 5px 1px 5px 6px;
+
+  &__img {
+    width: 100%;
+  }
+}

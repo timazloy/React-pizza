@@ -1,0 +1,11 @@
+.pizza_wrapper {
+
+  &__img {
+    width: 100%;
+    max-width: 150px;
+
+    &_left {
+      margin-left: auto;
+    }
+  }
+}

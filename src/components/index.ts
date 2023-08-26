@@ -13,3 +13,5 @@ export * from './CreatePizza/CreatePizzaLink';
 export * from './ButtonBack/ButtonBack';
 export * from './ConfigurePizza/ConfigurePizza';
 export * from './ButtonAdd/ButtonAdd';
+export * from './Slider/Slider';
+export * from './SliderButtons/SliderButtons';

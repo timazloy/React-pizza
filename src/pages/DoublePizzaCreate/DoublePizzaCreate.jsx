@@ -1,16 +1,14 @@
 import React, { useRef } from 'react';
 import { useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
-import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import axios from 'axios';
 import styles from './DoublePizzaCreate.module.scss';
 import arrowImg from '../../assets/img/back.svg';
-import { ButtonAdd, ButtonBack, ConfigurePizza, Loading } from '../../components';
-import { addToCart, CartItem } from '../../redux/slices/cartSlice';
+import { ButtonAdd, ButtonBack, ConfigurePizza, Loading, SliderPizza, c, SliderButtons } from '../../components';
+import { addToCart } from '../../redux/slices/cartSlice';
 
-const DoublePizzaCreate: React.FC = () => {
+const DoublePizzaCreate = () => {
    const [pizzas, setPizzas] = React.useState([]);
    const [leftImg, setLeftImg] = React.useState(pizzas[0]?.imageLeftPart);
    const [rightImg, setRightImg] = React.useState(pizzas[0]?.imageRightPart);
@@ -110,7 +108,7 @@ const DoublePizzaCreate: React.FC = () => {
    }, [activeSize, activeSlideLeft, activeSlideRight, activeType]);
 
    const addToCat = () => {
-      const item: CartItem = {
+      const item = {
          id: currentPizzaLeft === currentPizzaRight ? pizzas[activeSlideLeft]?.id : currentPizzaLeft + currentPizzaRight,
          title: currentPizzaLeft === currentPizzaRight ? currentPizzaRight : `${currentPizzaLeft} + ${currentPizzaRight}`,
          img: [leftImg, rightImg],
@@ -143,18 +141,13 @@ const DoublePizzaCreate: React.FC = () => {
             <div className={styles.total_price}>Итого: {totalPrice} ₽</div>
 
             <div className={styles.wrapper__column}>
-               <div className={styles.pizzas_check}>
-                  {pizzas.map((item, index) => (
-                     <button
-                        key={item.id}
-                        onClick={() => goToSlide(sliderLeftRef, item.id, setActiveSlideLeft)}
-                        className={`${styles.button_check} ${index === activeSlideLeft ? styles.active : ''}`}
-                        type='button'
-                     >
-                        <img className={styles.button_check__img} src={item.imageUrl} alt='pizza' />
-                     </button>
-                  ))}
-               </div>
+               <SliderButtons
+                  pizzas={pizzas}
+                  goToSlide={goToSlide}
+                  activeSlide={activeSlideLeft}
+                  ref={sliderLeftRef}
+                  setActiveSlide={setActiveSlideLeft}
+               />
                <ConfigurePizza
                   changeSize={changeSize}
                   changeType={changeType}
@@ -165,42 +158,29 @@ const DoublePizzaCreate: React.FC = () => {
                />
             </div>
 
-            <Slider afterChange={handleSlideChangeLeft} ref={sliderLeftRef} {...settings}>
-               {pizzas.map((item) => (
-                  <Link to={`/pizza/${item.id}`} key={item.id}>
-                     <div className={styles.pizza_wrapper}>
-                        <img
-                           className={`${styles.pizza_wrapper__img} ${styles.pizza_wrapper__img_left}`}
-                           src={item.imageLeftPart}
-                           alt='pizza'
-                        />
-                     </div>
-                  </Link>
-               ))}
-            </Slider>
-            <Slider afterChange={handleSlideChangeRight} ref={sliderRightRef} {...settings}>
-               {pizzas.map((item) => (
-                  <Link to={`/pizza/${item.id}`} key={item.id}>
-                     <div className={styles.pizza_wrapper} key={item.id}>
-                        <img className={styles.pizza_wrapper__img} src={item.imageRightPart} alt='pizza' />
-                     </div>
-                  </Link>
-               ))}
-            </Slider>
+            <SliderPizza
+               side='left'
+               afterChange={handleSlideChangeLeft}
+               ref={sliderLeftRef}
+               settings={settings}
+               pizzas={pizzas}
+            />
+            <SliderPizza
+               side='right'
+               afterChange={handleSlideChangeRight}
+               ref={sliderRightRef}
+               settings={settings}
+               pizzas={pizzas}
+            />
             <div className={styles.pizzas_check}>
                <div className={styles.wrapper__column}>
-                  <div className={styles.pizzas_check}>
-                     {pizzas.map((item, index) => (
-                        <button
-                           key={item.id}
-                           onClick={() => goToSlide(sliderRightRef, item.id, setActiveSlideRight)}
-                           className={`${styles.button_check} ${index === activeSlideRight ? styles.active : ''}`}
-                           type='button'
-                        >
-                           <img className={styles.button_check__img} src={item.imageUrl} alt='pizza' />
-                        </button>
-                     ))}
-                  </div>
+                  <SliderButtons
+                     pizzas={pizzas}
+                     goToSlide={goToSlide}
+                     activeSlide={activeSlideRight}
+                     ref={sliderRightRef}
+                     setActiveSlide={setActiveSlideRight}
+                  />
                   <ButtonAdd addToCat={addToCat} />
                </div>
             </div>
