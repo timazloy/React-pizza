@@ -4,7 +4,7 @@ import { Routes, Route } from 'react-router-dom';
 import './App.css';
 import './scss/app.scss';
 
-import Home from './pages/Home';
+import Home from './pages/Home/Home';
 import { Loading, Header } from './components/';
 
 const Cart = React.lazy(() => import(/* webpackChunkName: "Cart"*/ './pages/Cart/Cart'));
@@ -13,7 +13,6 @@ const Pizza = React.lazy(() => import(/* webpackChunkName: "Pizza"*/ './pages/Pi
 const DoublePizzaCreate = React.lazy(
    () => import(/* webpackChunkName: "DoublePizzaCreate"*/ './pages/DoublePizzaCreate/DoublePizzaCreate')
 );
-const CreatePizza = React.lazy(() => import(/* webpackChunkName: "CreatePizza"*/ './pages/CreatePizza/CreatePizza'));
 
 function App() {
    return (
@@ -28,7 +27,6 @@ function App() {
                      <Route path='/cart' element={<Cart />} />
                      <Route path='/pizza/:id' element={<Pizza />} />
                      <Route path='/double_pizza' element={<DoublePizzaCreate />} />
-                     <Route path='/create_pizza' element={<CreatePizza />} />
                   </Routes>
                </React.Suspense>
             </div>

@@ -62,21 +62,6 @@ const Pizza: React.FC = () => {
                      поставщиками, чтобы гарантировать идеально приготовленные мясные начинки с насыщенным вкусом.
                   </li>
                </ul>
-               <div>
-                  <div>
-                     <p>Тип пиццы:</p>
-                     {Object.keys(pizza.types).map((type, i) => (
-                        <button key={i}>{type}</button>
-                     ))}
-                  </div>
-                  <div>
-                     <p>Размер:</p>
-                     {Object.keys(pizza.sizes).map((type, i) => (
-                        <button key={i}>{type}</button>
-                     ))}
-                  </div>
-                  <span>{pizza.price}</span>
-               </div>
             </div>
          </div>
       </>

@@ -26,6 +26,11 @@ const DoublePizzaCreate = () => {
    const [activeSlideLeft, setActiveSlideLeft] = React.useState(0);
    const [currentPizzaLeft, setCurrentPizzaLeft] = React.useState('');
    const [currentPizzaRight, setCurrentPizzaRight] = React.useState('');
+   const [totalPrice, setTotalPrice] = React.useState(() => {
+      const leftPizzaPrice = pizzas[0]?.sizes[activeSize] / 2 + pizzas[0]?.types[activeType] / 2 || 0;
+      const rightPizzaPrice = pizzas[0]?.sizes[activeSize] / 2 + pizzas[0]?.types[activeType] / 2 || 0;
+      return leftPizzaPrice + rightPizzaPrice;
+   });
 
    const sliderRightRef = useRef(null);
    const sliderLeftRef = useRef(null);
@@ -48,23 +53,6 @@ const DoublePizzaCreate = () => {
       }
       fetchData();
    }, []);
-
-   const settingsSlider = {
-      infinite: true,
-      slidesToShow: 1,
-      slidesToScroll: 1,
-      swipe: false,
-      vertical: true,
-      verticalSwiping: true,
-      prevArrow: <CustomArrow direction='prev' className={styles} />,
-      nextArrow: <CustomArrow direction='next' />
-   };
-
-   const [totalPrice, setTotalPrice] = React.useState(() => {
-      const leftPizzaPrice = pizzas[0]?.sizes[activeSize] / 2 + pizzas[0]?.types[activeType] / 2 || 0;
-      const rightPizzaPrice = pizzas[0]?.sizes[activeSize] / 2 + pizzas[0]?.types[activeType] / 2 || 0;
-      return leftPizzaPrice + rightPizzaPrice;
-   });
 
    const goToSlide = (ref, slideIndex, setActive) => {
       ref.current.slickGoTo(slideIndex);
@@ -142,20 +130,8 @@ const DoublePizzaCreate = () => {
                />
             </div>
 
-            <SliderPizza
-               side='left'
-               afterChange={handleSlideChangeLeft}
-               ref={sliderLeftRef}
-               settings={settingsSlider}
-               pizzas={pizzas}
-            />
-            <SliderPizza
-               side='right'
-               afterChange={handleSlideChangeRight}
-               ref={sliderRightRef}
-               settings={settingsSlider}
-               pizzas={pizzas}
-            />
+            <SliderPizza side='left' afterChange={handleSlideChangeLeft} ref={sliderLeftRef} pizzas={pizzas} />
+            <SliderPizza side='right' afterChange={handleSlideChangeRight} ref={sliderRightRef} pizzas={pizzas} />
             <div className={styles.pizzas_check}>
                <div className={styles.wrapper__column}>
                   <SliderButtons

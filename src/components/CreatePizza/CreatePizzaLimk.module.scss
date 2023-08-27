@@ -1,14 +1,20 @@
 .create_pizza {
 
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid #fe5f1e;
+  padding: 5px 10px;
+  border-radius: 10px;
+
   &__title {
     font-size: 20px;
     font-weight: 900;
-    margin-bottom: 20px;
     text-align: center;
   }
 
   &__img {
-
+    width: 53px;
   }
 
 }

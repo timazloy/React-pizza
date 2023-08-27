@@ -1,19 +1,19 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { setCategoryId, setSelectedSort, setCurrentPage, setFilters, FilterSliceState } from '../redux/slices/filterSlices';
-import { fetchPizzas, SearchPizzaParams } from '../redux/slices/pizzasSlice';
+import { setCategoryId, setSelectedSort, setCurrentPage, setFilters, FilterSliceState } from '../../redux/slices/filterSlices';
+import { fetchPizzas, SearchPizzaParams } from '../../redux/slices/pizzasSlice';
 // import { useAppDispatch } from '../redux/store';
 import qs from 'qs';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
-import { sortSettingItems } from '../components';
+import { sortSettingItems } from '../../components';
 
-import '../scss/app.scss';
-import '../App.css';
+import '../../scss/app.scss';
+import '../../App.css';
 
-import { Categories, Sort, Skeleton, PizzaBlock, Pagination, Error, CreatePizzaLink } from '../components/';
-import { RootState } from '../redux/store';
+import { Categories, Sort, Skeleton, PizzaBlock, Pagination, Error, CreatePizzaLink } from '../../components';
+import { RootState } from '../../redux/store';
 
 const Home: React.FC = () => {
    const navigate = useNavigate();
@@ -102,11 +102,6 @@ const Home: React.FC = () => {
                   link={'/double_pizza'}
                   img={'//cdpiz1.pizzasoft.ru/rs/280x280/pizzafab/items/0/picca-iz-dvuh-raznyh-polovin-main_image-288-27213.jpg'}
                   title={'Пицца из двух половин'}
-               />
-               <CreatePizzaLink
-                  link={'/create_pizza'}
-                  img={'//cdpiz1.pizzasoft.ru/rs/280x280/pizzafab/items/0/konstruktor-piccy-main_image-114-53765.jpg'}
-                  title={'Конструктор пиццы'}
                />
             </div>
             <h2 className='content__title'>Все пиццы</h2>
