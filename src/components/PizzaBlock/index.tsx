@@ -21,6 +21,16 @@ type PizzaBlockProps = {
    sizes: Sizes;
 };
 
+type ItemCart = {
+   id: string;
+   title: string;
+   img: string;
+   price: number;
+   type: string;
+   size: string;
+   count: number;
+};
+
 export const PizzaBlock: React.FC<PizzaBlockProps> = ({ title, imageUrl, types, sizes, price, id, rating }) => {
    const dispatch = useDispatch();
 
@@ -32,13 +42,13 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({ title, imageUrl, types, 
    const totalCost = sizes[activeSize] + types[activeType];
 
    const addToCat = () => {
-      const item: CartItem = {
+      const item: ItemCart = {
          id,
          title,
          img: imageUrl,
          price: totalCost,
          type: activeType,
-         size: Number(activeSize),
+         size: activeSize,
          count: 1
       };
 
