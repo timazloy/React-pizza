@@ -1,7 +1,12 @@
 import React from 'react';
 import styles from '../../pages/DoublePizzaCreate/DoublePizzaCreate.module.scss';
 
-export const DoublePizzaName = ({ currentPizzaLeft, currentPizzaRight }) => {
+interface DoublePizzaNameProps {
+   currentPizzaLeft: string;
+   currentPizzaRight: string;
+}
+
+export const DoublePizzaName: React.FC<DoublePizzaNameProps> = ({ currentPizzaLeft, currentPizzaRight }) => {
    return (
       <>
          {currentPizzaLeft === currentPizzaRight ? (

@@ -1,6 +1,10 @@
 import React from 'react';
 
-export const ButtonAdd = ({ addToCat }) => {
+interface ButtonAddProps {
+   addToCat: () => void;
+}
+
+export const ButtonAdd: React.FC<ButtonAddProps> = ({ addToCat }) => {
    return (
       <button onClick={addToCat} type='button' className='button button--outline button--add'>
          <svg width='12' height='12' viewBox='0 0 12 12' fill='none' xmlns='http://www.w3.org/2000/svg'>
@@ -13,3 +17,5 @@ export const ButtonAdd = ({ addToCat }) => {
       </button>
    );
 };
+
+export default ButtonAdd;

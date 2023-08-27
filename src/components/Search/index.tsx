@@ -43,7 +43,7 @@ export const Search: React.FC = () => {
             type='text'
             placeholder='Найти пиццу...'
          />
-         {searchValue && (
+         {searchValue.searchValue && (
             <button onClick={clearSearchField} className={styles.close} type='button'>
                <img src={close} alt='close' />
             </button>

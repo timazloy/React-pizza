@@ -1,6 +1,22 @@
 import React from 'react';
 
-export const ConfigurePizza = ({ keysTypes, changeSize, changeType, activeType, keysSizes, setActiveSize, activeSize }) => {
+interface ConfigurePizzaProps {
+   keysTypes: string[];
+   keysSizes: string[];
+   activeType: string;
+   activeSize: string;
+   changeType: (type: string, index: number) => void;
+   changeSize: (size: string, index: number) => void;
+}
+
+export const ConfigurePizza: React.FC<ConfigurePizzaProps> = ({
+   keysTypes,
+   keysSizes,
+   activeType,
+   activeSize,
+   changeType,
+   changeSize
+}) => {
    return (
       <div className='pizza-block__selector'>
          <ul>
