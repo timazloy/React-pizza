@@ -16,3 +16,5 @@ export * from './ButtonAdd/ButtonAdd';
 export * from './Slider/Slider';
 export * from './SliderButtons/SliderButtons';
 export * from './Slider/CustomArrow/CustomArrow';
+export * from './SliderButtons/SliderButton/SliderButton';
+export * from './DoublePizzaName/DoublePizzaName';

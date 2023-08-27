@@ -4,7 +4,16 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import axios from 'axios';
 import styles from './DoublePizzaCreate.module.scss';
-import { ButtonAdd, ButtonBack, ConfigurePizza, Loading, SliderPizza, SliderButtons, CustomArrow } from '../../components';
+import {
+   ButtonAdd,
+   ButtonBack,
+   ConfigurePizza,
+   Loading,
+   SliderPizza,
+   SliderButtons,
+   CustomArrow,
+   DoublePizzaName
+} from '../../components';
 import { addToCart } from '../../redux/slices/cartSlice';
 
 const DoublePizzaCreate = () => {
@@ -113,15 +122,8 @@ const DoublePizzaCreate = () => {
       <>
          <ButtonBack />
          <div className={styles.wrapper}>
-            {currentPizzaLeft === currentPizzaRight ? (
-               <div className={styles.pizzas_plus}>{currentPizzaLeft}</div>
-            ) : (
-               <div className={styles.pizzas_plus}>
-                  {currentPizzaLeft} + {currentPizzaRight}
-               </div>
-            )}
+            <DoublePizzaName currentPizzaLeft={currentPizzaLeft} currentPizzaRight={currentPizzaRight} />
             <div className={styles.total_price}>Итого: {totalPrice} ₽</div>
-
             <div className={styles.wrapper__column}>
                <SliderButtons
                   pizzas={pizzas}
