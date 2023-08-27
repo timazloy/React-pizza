@@ -3,27 +3,29 @@ import { useDispatch } from 'react-redux';
 import { addToCart } from '../../redux/slices/cartSlice';
 import ratingIMG from '../../assets/img/rating2.svg';
 import { CartItem } from '../../redux/slices/cartSlice';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import { ConfigurePizza, ButtonAdd } from '../index';
-// import { log } from 'util';
+
+type Sizes = Record<string, number>;
+type Types = Record<string, number>;
 
 type PizzaBlockProps = {
-   id: string,
-   imageUrl: string,
-   title: string,
-   description: string,
-   price: string,
-   rating: string,
-   types: number[],
-   sizes: number[]
+   id: string;
+   imageUrl: string;
+   title: string;
+   description: string;
+   price: string;
+   rating: string;
+   types: Types;
+   sizes: Sizes;
 };
 
 export const PizzaBlock: React.FC<PizzaBlockProps> = ({ title, imageUrl, types, sizes, price, id, rating }) => {
    const dispatch = useDispatch();
 
-   const [activeSize, setActiveSize] = React.useState('26');
-   const [activeType, setActiveType] = React.useState('тонкое');
+   const [activeSize, setActiveSize] = React.useState<string>('26');
+   const [activeType, setActiveType] = React.useState<string>('тонкое');
 
    const keysTypes = Object.keys(types);
    const keysSizes = Object.keys(sizes);
@@ -36,18 +38,18 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({ title, imageUrl, types, 
          img: imageUrl,
          price: totalCost,
          type: activeType,
-         size: activeSize,
+         size: Number(activeSize),
          count: 1
       };
 
       dispatch(addToCart(item));
    };
 
-   const changeSize = (size: any, index: any) => {
+   const changeSize = (size: string) => {
       setActiveSize(size);
    };
 
-   const changeType = (type: any, index: any) => {
+   const changeType = (type: string) => {
       setActiveType(type);
    };
 
